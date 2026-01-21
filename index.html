@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vocab of Review test 1 Homework</title>
+    <style>
+        /* Import font JetBrains Mono cho IPA sắc nét hơn */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+        
+        :root {
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --secondary: #4caf50;
+            --accent: #a5d6a7;
+            --bg: #f1f8e9;
+            --white: #ffffff;
+            --danger: #ef5350;
+            --success: #66bb6a;
+            /* Combo màu mới cho nút Quiz - Lavender/Soft Purple dịu mắt */
+            --quiz-btn-bg: #7e57c2; 
+            --quiz-btn-hover: #5e35b1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        #audioUnlocker {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999; text-align: center; padding: 20px;
+        }
+
+        .unlock-btn {
+            background: white; color: var(--primary-dark); padding: 18px 45px; border-radius: 50px;
+            font-weight: 700; border: none; cursor: pointer; font-size: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); margin-top: 20px;
+        }
+
+        .container {
+            max-width: 1100px; margin: 0 auto; background: var(--white);
+            border-radius: 20px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        header { text-align: center; margin-bottom: 25px; }
+        h1 { color: var(--primary-dark); font-size: clamp(22px, 7vw, 32px); margin-bottom: 8px; font-weight: 800; }
+
+        .instruction {
+            color: #555;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            background: #e8f5e9;
+            padding: 8px 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .controls {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px; padding: 15px; background: #f9fdf9;
+            border-radius: 16px; gap: 15px; flex-direction: column;
+        }
+
+        @media (min-width: 768px) { .controls { flex-direction: row; } }
+
+        select { flex: 1; padding: 14px; border-radius: 12px; border: 2px solid var(--accent); outline: none; font-size: 16px; }
+
+        /* Nút Quiz với màu Tím oải hương dịu mắt */
+        .btn-quiz { 
+            background: var(--quiz-btn-bg); color: white; padding: 18px 24px; border-radius: 14px; 
+            font-weight: 700; border: none; cursor: pointer; width: 100%; font-size: 17px;
+            box-shadow: 0 4px 12px rgba(126, 87, 194, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-quiz:hover {
+            background: var(--quiz-btn-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(94, 53, 177, 0.4);
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+        @media (min-width: 480px) { .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; } }
+
+        .card {
+            height: 110px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 18px; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 15px; font-weight: 600; text-align: center; padding: 12px; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+        .card .details {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+            width: calc(100% - 40px); max-width: 420px; background: #1b5e20;
+            padding: 25px; border-radius: 24px; box-shadow: 0 -5px 40px rgba(0,0,0,0.4);
+            opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 100;
+            color: white;
+        }
+        .card.active .details { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+
+        #quizOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.97); display: none; align-items: center; justify-content: center; z-index: 1000;
+        }
+
+        .quiz-container {
+            background: white; width: 95%; max-width: 550px; padding: 30px 20px;
+            border-radius: 28px; text-align: center; position: relative; overflow: hidden;
+            min-height: 520px; display: flex; flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .timer-bar {
+            position: absolute; top: 0; left: 0; height: 8px; background: var(--secondary);
+            width: 100%; transition: none;
+        }
+
+        .quiz-header { display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 16px; color: #777; font-weight: 700; }
+        
+        .question-text { 
+            font-size: 1.3rem; 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            color: #111; 
+            min-height: 100px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 0 10px;
+            line-height: 1.4;
+        }
+
+        .hint-text { background: #f5f5f5; padding: 12px; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin-bottom: 25px; color: #444; border: 1px dashed #ccc; }
+
+        .opt-btn {
+            display: block; width: 100%; padding: 16px; margin: 8px 0;
+            border: 2px solid #eee; border-radius: 16px; background: white;
+            cursor: pointer; font-family: inherit; font-weight: 600; transition: all 0.2s;
+            font-size: 17px; color: #333;
+        }
+        .opt-btn:active { transform: scale(0.98); }
+        .opt-btn.correct { background: var(--success) !important; color: white; border-color: var(--success); box-shadow: 0 4px 12px rgba(102, 187, 106, 0.4); }
+        .opt-btn.wrong { background: var(--danger) !important; color: white; border-color: var(--danger); box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4); }
+        
+        .milestone-screen { padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
+        .milestone-score { font-size: 72px; font-weight: 900; color: var(--primary); margin: 15px 0; letter-spacing: -2px; }
+        .milestone-msg { font-weight: 700; color: #333; margin-bottom: 30px; font-size: 20px; padding: 0 10px; line-height: 1.5; }
+        
+        .action-btn { background: var(--primary); color: white; border: none; padding: 20px 30px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 15px; font-size: 18px; }
+        .secondary-btn { background: #f0f0f0; color: #555; border: none; padding: 16px 30px; border-radius: 16px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 12px; font-size: 16px; }
+
+        /* Font IPA góc cạnh và nét hơn */
+        .ipa { 
+            font-family: 'JetBrains Mono', monospace; 
+            background: rgba(255,255,255,0.15); 
+            padding: 4px 12px; 
+            border-radius: 4px; 
+            font-size: 0.9em; 
+            display: inline-block; 
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div id="audioUnlocker">
+    <h1 style="color:white; margin-bottom:10px;">Review test 1</h1>
+    <p>Sẵn sàng cho bài tập về nhà?</p>
+    <button class="unlock-btn" onclick="startApp()">BẮT ĐẦU</button>
+</div>
+
+<div class="container" id="mainContent" style="display: none;">
+    <header>
+        <h1>Vocab of Review test 1 Homework</h1>
+        <div class="instruction">Các em click vào từ để biết cách phát âm, và ngữ nghĩa</div>
+    </header>
+
+    <div class="controls">
+        <select id="voiceSelect"></select>
+        <button class="btn-quiz" onclick="openModeSelection()">Test trí nhớ 1 chút nhé? ➔</button>
+    </div>
+
+    <div class="grid" id="vocabGrid"></div>
+</div>
+
+<div id="quizOverlay">
+    <div class="quiz-container" id="quizContainer"></div>
+</div>
+
+<script>
+    const synth = window.speechSynthesis;
+    let allowedVoices = [];
+    
+    const VOCAB_DATA = {
+        "to diversify": { ipa: "/daɪˈvɜː.sɪ.faɪ/", meaning: "đa dạng hóa", def: "to make or become more varied in form, range, or activities", syn: ["branch out"], collo: "diversify the portfolio", sentence: "The company needs to ________ its product range to survive." },
+        "to generate income": { ipa: "/ˈdʒen.ə.reɪt ˈɪŋ.kʌm/", meaning: "tạo ra thu nhập", def: "to produce money that is earned from work, business, or investments", syn: ["earn money"], collo: "strategies to generate income", sentence: "Selling assets is one way to ________ in the short term." },
+        "commercial revenues": { ipa: "/kəˈmɜː.ʃəl ˈrev.ə.njuːz/", meaning: "doanh thu thương mại", def: "the income that a company or organization gets from selling goods or services", syn: ["sales turnover"], collo: "increase commercial revenues", sentence: "The airport's ________ have doubled since the renovation." },
+        "a combination of factors": { ipa: "/ə ˌkɒm.bɪˈneɪ.ʃən əv ˈfæk.təz/", meaning: "một tổ hợp các yếu tố", def: "a number of different things that work together to cause a result", syn: ["mix of elements"], collo: "due to a combination of factors", sentence: "The project failed because of ________, including bad timing." },
+        "restrictions on sales": { ipa: "/rɪˈstrɪk.ʃənz ɒn seɪlz/", meaning: "các hạn chế về mặt hàng bán", def: "limits or controls on what can be sold", syn: ["trade barriers"], collo: "impose restrictions on sales", sentence: "The government has lifted some ________ of tobacco." },
+        "security procedures": { ipa: "/sɪˈkjʊə.rə.ti prəˈsiː.dʒəz/", meaning: "các quy trình an ninh", def: "official or accepted ways of doing something to keep people and places safe", syn: ["safety protocols"], collo: "follow security procedures", sentence: "Strict ________ are in place at every entrance." },
+        "dwell time": { ipa: "/ˈdwel ˌtaɪm/", meaning: "thời gian lưu lại", def: "the amount of time someone spends in a particular place", syn: ["waiting time"], collo: "increase passenger dwell time", sentence: "Retailers aim to increase ________ to boost sales." },
+        "global economic downturn": { ipa: "/ˈɡləʊ.bəl ˌek.əˈnɒm.ɪk ˈdaʊn.tɜːn/", meaning: "sự suy thoái kinh tế toàn cầu", def: "a period when the economy of the world is doing badly", syn: ["world recession"], collo: "survive the global economic downturn", sentence: "Many small businesses went bankrupt during the last ________." },
+        "aeronautical revenues": { ipa: "/ˌeə.rəˈnɔː.tɪ.kəl ˈrev.ə.njuːz/", meaning: "doanh thu hàng không", def: "money earned from activities related to aircraft and air travel", syn: ["aviation income"], collo: "primary aeronautical revenues", sentence: "Landing fees are a major part of ________ for airports." },
+        "financial health": { ipa: "/faɪˈnæn.ʃəl helθ/", meaning: "tình hình tài chính", def: "the state of a company's or person's financial situation", syn: ["fiscal condition"], collo: "assess the financial health", sentence: "The audit confirmed the long-term ________ of the organization." },
+        "low-cost carrier sector": { ipa: "/ˌləʊˈkɒst ˈkæ.ri.ə ˈsek.tər/", meaning: "khu vực hàng không giá rẻ", def: "the part of the airline industry that offers cheap flights", syn: ["budget airline industry"], collo: "growth in the low-cost carrier sector", sentence: "The ________ has transformed how people travel across Europe." },
+        "merchandising space": { ipa: "/ˈmɜː.tʃən.daɪ.zɪŋ speɪs/", meaning: "không gian bán hàng", def: "the area used for selling goods, especially related to a brand", syn: ["retail area"], collo: "allocate merchandising space", sentence: "We need more ________ for the new summer collection." },
+        "a radical solution": { ipa: "/ə ˈræd.ɪ.kəl səˈluː.ʃən/", meaning: "một giải pháp triệt để", def: "a new and very different way of solving a problem", syn: ["drastic measure"], collo: "propose a radical solution", sentence: "The board is considering ________ to the debt crisis." },
+        "an array of": { ipa: "/ən əˈreɪ əv/", meaning: "một loạt, một dãy", def: "a large number or wide range of different things", syn: ["a variety of"], collo: "an array of options", sentence: "The shop offers ________ handmade crafts." },
+        "to take on the role of": { ipa: "/tu ˈteɪk ɒn ðə rəʊl əv/", meaning: "đảm nhận vai trò", def: "to start doing a particular job or function", syn: ["act as"], collo: "take on the role of leader", sentence: "She was asked to ________ acting manager." },
+        "a facilitator of access": { ipa: "/ə fəˈsɪl.ɪ.teɪ.tər əv ˈæk.ses/", meaning: "người tạo điều kiện tiếp cận", def: "something that makes it easier to get to a place or use a service", syn: ["access provider"], collo: "act as a facilitator of access", sentence: "The new bridge serves as ________ to the remote island." },
+        "a final destination": { ipa: "/ə ˈfaɪ.nəl ˌdes.tɪˈneɪ.ʃən/", meaning: "điểm đến cuối cùng", def: "the place where someone is going to, at the end of a trip", syn: ["end point"], collo: "reach the final destination", sentence: "After three flights, we finally reached our ________." },
+        "dedicated facilities": { ipa: "/ˈded.ɪ.keɪ.tɪd fəˈsɪl.ə.tiz/", meaning: "cơ sở vật chất chuyên dụng", def: "buildings, equipment, or services intended for a particular purpose", syn: ["customized infrastructure"], collo: "invest in dedicated facilities", sentence: "The hospital has ________ for cancer treatment." },
+        "to reconvert": { ipa: "/ˌriː.kənˈvɜːt/", meaning: "chuyển đổi lại", def: "to change something back to a different form or use", syn: ["transform back"], collo: "reconvert old warehouses", sentence: "They plan to ________ the old cinema into a theater." },
+        "underused areas": { ipa: "/ˌʌn.dəˈjuːzd ˈeə.ri.əz/", meaning: "khu vực chưa hết công suất", def: "spaces or places that are not used as much as they could be", syn: ["idle spaces"], collo: "utilize underused areas", sentence: "The city is trying to turn ________ into community gardens." },
+        "a business venue": { ipa: "/ə ˈbɪz.nɪs ˈven.juː/", meaning: "địa điểm kinh doanh", def: "a place used for business meetings or events", syn: ["meeting location"], collo: "book a business venue", sentence: "This hotel is the premier ________ in the city center." },
+        "to retain airlines": { ipa: "/tu rɪˈteɪn ˈeə.laɪnz/", meaning: "giữ chân các hãng hàng không", def: "to keep airlines using an airport's services", syn: ["keep carriers"], collo: "efforts to retain airlines", sentence: "Lowering landing fees is crucial to ________." },
+        "a determining factor": { ipa: "/ə dɪˈtɜː.mɪ.nɪŋ ˈfæk.tər/", meaning: "yếu tố quyết định", def: "something that controls or decides the result of a situation", syn: ["decisive element"], collo: "the main determining factor", sentence: "Price is often the ________ when choosing a supplier." },
+        "financial prospects": { ipa: "/faɪˈnæn.ʃəl ˈprɒs.pekts/", meaning: "triển vọng tài chính", def: "the possibility of success or profit in the future", syn: ["economic outlook"], collo: "bright financial prospects", sentence: "The new partnership has improved our ________." },
+        "competitive advantage": { ipa: "/kəmˈpet.ɪ.tɪv ədˈvɑːn.tɪdʒ/", meaning: "lợi thế cạnh tranh", def: "a condition that makes a company more successful than others", syn: ["competitive edge"], collo: "gain a competitive advantage", sentence: "Our unique technology gives us a huge ________." },
+        "a commercial venture": { ipa: "/ə kəˈmɜː.ʃəl ˈven.tʃər/", meaning: "một dự án thương mại", def: "a business project or activity, especially one involving risk", syn: ["business enterprise"], collo: "launch a commercial venture", sentence: "The first ________ in space tourism has begun." },
+        "stakeholders": { ipa: "/ˈsteɪkˌhəʊl.dəz/", meaning: "các bên liên quan", def: "people or groups with an interest in the success of an organization", syn: ["interested parties"], collo: "consult all stakeholders", sentence: "The company must consider the needs of all its ________." },
+        "local orientation": { ipa: "/ˈləʊ.kəl ˌɔː.ri.enˈteɪ.ʃən/", meaning: "định hướng địa phương", def: "a focus on serving the needs of the nearby community", syn: ["regional focus"], collo: "strong local orientation", sentence: "The bank maintains a ________ despite being a global brand." },
+        "to be of limited importance": { ipa: "/tu bi əv ˈlɪm.ɪ.tɪd ɪmˈpɔː.təns/", meaning: "có tầm quan trọng hạn chế", def: "to not be very significant or influential", syn: ["insignificant"], collo: "considered to be of limited importance", sentence: "The minor error was ________ to the overall result." },
+        "runner-up": { ipa: "/ˌrʌn.ərˈʌp/", meaning: "người/vật về nhì", def: "a person or team that finishes second in a race or competition", syn: ["second-place finisher"], collo: "finish as runner-up", sentence: "He was the ________ in the national chess championship." }
+    };
+
+    let audioCtx = null;
+    let quizQueue = [];
+    let currentQuestion = null;
+    let timerInterval = null;
+    let timeLeft = 15;
+    let wrongAnswerBuffer = [];
+    let sessionStats = { correctInMilestone: 0, questionsInMilestone: 0, totalCorrect: 0, milestoneSize: 10, currentLimit: 10 };
+
+    function playSound(type) {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        oscillator.connect(gainNode); gainNode.connect(audioCtx.destination);
+        if (type === 'correct') {
+            oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); 
+            oscillator.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.3);
+        } else {
+            oscillator.type = 'sawtooth'; oscillator.frequency.setValueAtTime(220, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.4);
+        }
+    }
+
+    function populateVoices() {
+        const allVoices = synth.getVoices();
+        allowedVoices = allVoices.filter(v => 
+            (v.lang.includes('en-US') || v.lang.includes('en-GB')) && 
+            !v.name.includes('David') && 
+            !v.name.includes('Zira')
+        );
+        const select = document.getElementById('voiceSelect');
+        if(!select) return;
+        select.innerHTML = '';
+        allowedVoices.forEach((v, i) => {
+            const opt = document.createElement('option'); opt.value = i; opt.textContent = v.name;
+            if (v.name.includes('Google') || v.name.includes('Natural')) opt.selected = true;
+            select.appendChild(opt);
+        });
+    }
+
+    if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoices;
+
+    function startApp() {
+        document.getElementById('audioUnlocker').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        populateVoices();
+    }
+
+    function speak(text) {
+        synth.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        if(allowedVoices.length > 0) {
+            ut.voice = allowedVoices[document.getElementById('voiceSelect').value];
+        }
+        ut.rate = 0.85;
+        synth.speak(ut);
+    }
+
+    const grid = document.getElementById('vocabGrid');
+    Object.entries(VOCAB_DATA).forEach(([word, info]) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `${word} <div class="details"><div class="ipa">${info.ipa}</div><div style="font-size:14px; margin:10px 0; color:#c8e6c9;">${info.def}</div><strong style="font-size:18px; color:#fff;">${info.meaning}</strong></div>`;
+        card.onclick = (e) => {
+            e.stopPropagation();
+            const isActive = card.classList.contains('active');
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            if(!isActive) {
+                card.classList.add('active');
+                speak(word);
+            }
+        };
+        grid.appendChild(card);
+    });
+    document.onclick = (e) => {
+        if(!e.target.closest('.card')) document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+    };
+
+    function openModeSelection() {
+        document.getElementById('quizOverlay').style.display = 'flex';
+        const container = document.getElementById('quizContainer');
+        const total = Object.keys(VOCAB_DATA).length;
+        container.innerHTML = `
+            <h2 style="margin-bottom:25px; font-size: 24px;">Chọn số lượng câu</h2>
+            <div style="display:flex; flex-direction:column; gap:15px; width:100%;">
+                <button class="opt-btn" onclick="startQuiz(10)">🎯 10 câu</button>
+                <button class="opt-btn" onclick="startQuiz(20)">⚡ 20 câu</button>
+                <button class="opt-btn" onclick="startQuiz(${total})">🔥 Tất cả (${total})</button>
+            </div>
+            <button onclick="closeQuiz()" style="margin-top:25px; color:#888; background:none; border:none; cursor:pointer; font-weight:700;">HỦY BỎ</button>
+        `;
+    }
+
+    function startQuiz(limit) {
+        sessionStats.currentLimit = limit;
+        sessionStats.milestoneSize = limit; 
+        const allWords = Object.keys(VOCAB_DATA).sort(() => Math.random() - 0.5);
+        quizQueue = allWords.slice(0, limit);
+        wrongAnswerBuffer = [];
+        sessionStats.correctInMilestone = 0;
+        sessionStats.questionsInMilestone = 0;
+        sessionStats.totalCorrect = 0;
+        renderQuizBase(); nextQuestion();
+    }
+
+    function renderQuizBase() {
+        document.getElementById('quizContainer').innerHTML = `
+            <div class="timer-bar" id="timerBar"></div>
+            <div class="quiz-header"><span id="quizProgress"></span><span id="quizTimer">15s</span></div>
+            <div id="questionType" style="font-size:12px; font-weight:800; color:var(--primary); margin-bottom:10px; text-transform:uppercase; letter-spacing: 1px;"></div>
+            <div class="question-text" id="question"></div>
+            <div class="hint-text" id="hint"></div>
+            <div id="optionsGrid"></div>
+            <button onclick="closeQuiz()" style="margin-top:25px; opacity:0.6; font-size:14px; border:none; background:none; cursor:pointer; font-weight:700;">DỪNG CHƠI</button>
+        `;
+    }
+
+    function closeQuiz() { clearInterval(timerInterval); document.getElementById('quizOverlay').style.display = 'none'; }
+
+    function maskWord(str, target) {
+        const cleanTarget = target.replace(/^to\s+/, '');
+        const regex = new RegExp(cleanTarget, 'gi');
+        return str.replace(regex, '_______');
+    }
+
+    function generateQuestionData(word) {
+        const data = VOCAB_DATA[word];
+        const types = ['meaning', 'def', 'collo', 'sentence'];
+        const type = types[Math.floor(Math.random() * types.length)];
+        let qText, dType;
+
+        switch(type) {
+            case 'meaning': 
+                dType = "Nghĩa của từ"; 
+                qText = `Đâu là nghĩa tiếng Việt của cụm từ dưới đây? <br><span style="color:var(--primary); display:block; margin-top:10px;">"${word}"</span>`; 
+                break;
+            case 'def': 
+                dType = "Định nghĩa tiếng Anh"; 
+                qText = `"${data.def}" <br><br><small style="font-size:14px; color:#666; font-weight:normal;">Đây là định nghĩa của từ nào?</small>`; 
+                break;
+            case 'collo': 
+                dType = "Cụm từ cố định"; 
+                qText = `Điền từ còn thiếu vào cụm: <br><i style="color:#000;">"${maskWord(data.collo, word)}"</i>`; 
+                break;
+            case 'sentence': 
+                dType = "Ngữ cảnh thực tế"; 
+                qText = `Hoàn thành câu sau: <br><i style="color:#000;">"${maskWord(data.sentence, word)}"</i>`; 
+                break;
+        }
+        return { word, questionText: qText, hintText: `Gợi ý: ${data.meaning}`, correctAnswer: word, type: dType, originalType: type };
+    }
+
+    function nextQuestion() {
+        if (sessionStats.questionsInMilestone >= sessionStats.milestoneSize && quizQueue.length > 0) return showMilestone();
+        clearInterval(timerInterval);
+        
+        if (quizQueue.length === 0 && wrongAnswerBuffer.length > 0) quizQueue.push(wrongAnswerBuffer.shift().word);
+        if (quizQueue.length === 0) return showMilestone(true);
+
+        const word = quizQueue.shift();
+        currentQuestion = generateQuestionData(word);
+        document.getElementById('quizProgress').innerText = `CÂU ${sessionStats.questionsInMilestone + 1}/${sessionStats.milestoneSize}`;
+        document.getElementById('questionType').innerText = currentQuestion.type;
+        document.getElementById('question').innerHTML = currentQuestion.questionText;
+        document.getElementById('hint').innerText = currentQuestion.hintText;
+
+        const optionsGrid = document.getElementById('optionsGrid');
+        optionsGrid.innerHTML = '';
+        
+        let options = [];
+        if(currentQuestion.originalType === 'meaning') {
+            options = [VOCAB_DATA[word].meaning];
+            let distractors = Object.values(VOCAB_DATA)
+                .filter(v => v.meaning !== VOCAB_DATA[word].meaning)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 2)
+                .map(v => v.meaning);
+            options.push(...distractors);
+        } else {
+            options = [word];
+            let distractors = Object.keys(VOCAB_DATA)
+                .filter(w => w !== word && !currentQuestion.questionText.toLowerCase().includes(w.toLowerCase()))
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 2);
+            options.push(...distractors);
+        }
+        
+        options.sort(() => Math.random() - 0.5);
+
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'opt-btn'; btn.innerText = opt;
+            btn.onclick = () => {
+                clearInterval(timerInterval);
+                document.querySelectorAll('.opt-btn').forEach(b => b.style.pointerEvents = 'none');
+                
+                const isCorrect = (currentQuestion.originalType === 'meaning') ? (opt === VOCAB_DATA[word].meaning) : (opt === word);
+
+                if (isCorrect) {
+                    btn.classList.add('correct'); sessionStats.totalCorrect++; sessionStats.correctInMilestone++; playSound('correct');
+                } else {
+                    btn.classList.add('wrong'); playSound('wrong');
+                    document.querySelectorAll('.opt-btn').forEach(b => { 
+                        if((currentQuestion.originalType === 'meaning' && b.innerText === VOCAB_DATA[word].meaning) || b.innerText === word) 
+                            b.classList.add('correct'); 
+                    });
+                    wrongAnswerBuffer.push({ word: word });
+                }
+                sessionStats.questionsInMilestone++;
+                setTimeout(nextQuestion, 1400);
+            };
+            optionsGrid.appendChild(btn);
+        });
+        startTimer();
+    }
+
+    function startTimer() {
+        timeLeft = 15;
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('quizTimer').innerText = timeLeft + "s";
+            document.getElementById('timerBar').style.width = (timeLeft / 15 * 100) + "%";
+            if (timeLeft <= 0) { clearInterval(timerInterval); nextQuestion(); }
+        }, 1000);
+    }
+
+    function showMilestone(isFinal = false) {
+        const total = isFinal ? sessionStats.questionsInMilestone : sessionStats.milestoneSize;
+        const correct = sessionStats.correctInMilestone;
+        const percent = Math.round((correct / total) * 100);
+        
+        let message = "";
+        let emoji = "";
+        if (percent === 100) { message = "100% - Bạn có dùng tool hack không vậy?? Thật kinh ngạc!"; emoji = "🤯"; }
+        else if (percent >= 90) { message = "Gần như là hoàn hảo rồi! Tuyệt vời."; emoji = "🔥"; }
+        else if (percent >= 80) { message = "Khá đấy, sắp hoàn hảo rồi! Cố gắng thêm chút nữa."; emoji = "😎"; }
+        else if (percent >= 50) { message = "Chúc mừng! Bạn đã vượt qua mốc trung bình."; emoji = "👍"; }
+        else { message = "Bạn có muốn ôn tập lại không? Đừng bỏ cuộc nhé!"; emoji = "🤔"; }
+
+        const container = document.getElementById('quizContainer');
+        container.innerHTML = `
+            <div class="milestone-screen">
+                <div style="font-size: 60px;">${emoji}</div>
+                <h2 style="font-size:28px;">${isFinal ? 'KẾT QUẢ' : 'CHECKPOINT'}</h2>
+                <div class="milestone-score">${percent}%</div>
+                <p class="milestone-msg">${message}</p>
+                
+                ${percent < 50 ? 
+                    `<button class="action-btn" onclick="retryFailed()">Học lại từ sai</button>` : 
+                    (quizQueue.length > 0 ? `<button class="action-btn" onclick="resume()">Tiếp tục ➔</button>` : '')
+                }
+                
+                <button class="secondary-btn" onclick="closeQuiz()">${isFinal || (percent < 50 && wrongAnswerBuffer.length == 0) ? 'Về trang chính' : 'Dừng lại'}</button>
+            </div>
+        `;
+    }
+
+    function retryFailed() {
+        if (wrongAnswerBuffer.length > 0) {
+            quizQueue = wrongAnswerBuffer.map(i => i.word);
+            wrongAnswerBuffer = [];
+        } else {
+            startQuiz(sessionStats.currentLimit);
+            return;
+        }
+        sessionStats.correctInMilestone = 0;
+        sessionStats.questionsInMilestone = 0;
+        renderQuizBase(); nextQuestion();
+    }
+
+    function resume() {
+        sessionStats.correctInMilestone = 0;
+        sessionStats.questionsInMilestone = 0;
+        renderQuizBase(); nextQuestion();
+    }
+</script>
+</body>
+</html>
