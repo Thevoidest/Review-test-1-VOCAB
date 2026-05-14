@@ -9,9 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ============================================================
-           THEME — ported verbatim from VocabApp.jsx getTheme(false) L416-424
-           ============================================================ */
         :root {
             --bg: #a8ccb6;
             --text: #0f172a;
@@ -21,7 +18,6 @@
             --primary-light: #16a34a;
             --primary-dark: #0d3d1f;
             --accent: #f59e0b;
-            --accent-light: #fbbf24;
             --surface: #ffffff;
             --surface-elevated: #eef3f0;
             --border: rgba(0, 80, 40, 0.10);
@@ -36,32 +32,23 @@
             --danger: #dc2626;
             --danger-soft: #fee2e2;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
         body {
-            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.55;
-            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background: var(--bg); color: var(--text);
+            line-height: 1.55; min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ============================================================
-           SPLASH
-           ============================================================ */
+        /* SPLASH */
         #audioUnlocker {
-            position: fixed; inset: 0;
-            background: var(--bg);
+            position: fixed; inset: 0; background: var(--bg);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 9999; text-align: center; padding: 24px;
         }
         .splash-mark { width: 84px; height: 84px; margin-bottom: 18px; }
         .splash-eyebrow {
-            font-size: 11px; font-weight: 700;
-            color: var(--primary-dark);
+            font-size: 11px; font-weight: 700; color: var(--primary-dark);
             letter-spacing: 0.14em; text-transform: uppercase;
             margin-bottom: 10px; opacity: 0.85;
         }
@@ -69,88 +56,55 @@
         .splash-title {
             font-size: clamp(28px, 7vw, 42px);
             font-weight: 800; color: var(--primary-dark);
-            letter-spacing: -0.025em; line-height: 1.05;
-            margin-bottom: 8px;
+            letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 8px;
         }
-        .splash-sub {
-            font-size: 15px; color: var(--text-sub);
-            margin-bottom: 32px; font-weight: 500;
-        }
+        .splash-sub { font-size: 15px; color: var(--text-sub); margin-bottom: 32px; font-weight: 500; }
         .unlock-btn {
             background: var(--primary); color: #fff;
             padding: 14px 36px; border-radius: 12px;
             font-weight: 700; border: none; cursor: pointer;
-            font-size: 15px; font-family: inherit;
-            letter-spacing: 0.01em;
+            font-size: 15px; font-family: inherit; letter-spacing: 0.01em;
             box-shadow: 0 4px 16px rgba(0, 144, 64, 0.32);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            transition: transform 0.15s, box-shadow 0.15s;
         }
         .unlock-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0, 144, 64, 0.42); }
 
-        /* ============================================================
-           OUTER (va-outer)
-           ============================================================ */
+        /* OUTER */
         .va-outer { padding: 12px 12px 80px; }
         @media (min-width: 600px) {
             .va-outer { max-width: 1400px; margin: 0 auto; padding: 16px 16px 80px; }
         }
 
-        /* ============================================================
-           HEADER — verbatim from VocabApp.jsx:1297
-           ============================================================ */
+        /* HEADER */
         .va-header {
             display: flex; align-items: center; gap: 12px;
             margin-bottom: 16px; padding-bottom: 16px;
             border-bottom: 2px solid var(--border);
         }
-        .header-icon-btn {
-            padding: 7px 12px; border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            background: transparent;
-            color: var(--text-sub);
-            cursor: pointer; flex-shrink: 0;
-            font-family: inherit;
-            display: inline-flex; align-items: center; justify-content: center;
-            transition: background 0.15s;
-        }
-        .header-icon-btn:hover { background: rgba(255, 255, 255, 0.3); }
-        .header-icon-btn svg { width: 16px; height: 16px; }
         .va-title {
             font-size: clamp(20px, 4vw, 28px);
-            font-weight: 700;
-            color: var(--primary-dark);
+            font-weight: 700; color: var(--primary-dark);
             letter-spacing: -0.4px;
             display: flex; align-items: center; gap: 6px;
             background: rgba(255, 255, 255, 0.5);
             border: 1.5px solid rgba(255, 255, 255, 0.8);
-            padding: 4px 12px;
-            border-radius: 10px;
+            padding: 4px 12px; border-radius: 10px;
         }
         .va-title svg { width: 22px; height: 22px; flex-shrink: 0; }
-        .va-back-btn {
+        .va-sub {
             margin-left: auto;
-            display: flex; align-items: center; gap: 6px;
-            padding: 7px 14px; border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            background: transparent;
+            font-size: 12px; font-weight: 700;
             color: var(--text-sub);
-            font-size: 13px; font-weight: 600;
-            cursor: pointer; font-family: inherit;
-            flex-shrink: 0;
-            transition: background 0.15s;
-            text-decoration: none;
+            letter-spacing: 0.01em;
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 4px 10px; border-radius: 8px;
         }
-        .va-back-btn:hover { background: rgba(255, 255, 255, 0.3); }
-        .va-back-text { display: none; }
-        @media (min-width: 600px) { .va-back-text { display: inline; } }
 
-        /* ============================================================
-           REC BAR — verbatim from VocabApp.jsx:1360
-           ============================================================ */
+        /* REC BAR */
         .va-rec-bar {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 14px 18px;
-            border-radius: 14px;
+            padding: 14px 18px; border-radius: 14px;
             background: var(--surface);
             border: 2px solid var(--primary);
             box-shadow: 0 4px 20px rgba(0, 144, 64, 0.12), 0 0 0 1px rgba(0, 144, 64, 0.06);
@@ -163,19 +117,15 @@
         }
         .va-rec-bar .rec-eyebrow {
             font-size: 11px; font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.01em;
-            color: #15803d;
-            margin-bottom: 2px;
+            text-transform: uppercase; letter-spacing: 0.01em;
+            color: #15803d; margin-bottom: 2px;
             display: flex; align-items: center; gap: 4px;
         }
         .va-rec-bar .rec-eyebrow svg { width: 12px; height: 12px; }
         .va-rec-bar .rec-title { font-size: 14px; font-weight: 700; color: var(--text); }
         .va-rec-bar .rec-cta {
-            padding: 10px 20px;
-            background: var(--primary);
-            color: white; border: none;
-            border-radius: 10px;
+            padding: 10px 20px; background: var(--primary);
+            color: white; border: none; border-radius: 10px;
             font-size: 13px; font-weight: 700;
             cursor: pointer; white-space: nowrap;
             font-family: inherit;
@@ -186,58 +136,17 @@
         .va-rec-bar .rec-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 144, 64, 0.35); }
         .va-rec-bar .rec-cta svg { width: 14px; height: 14px; }
 
-        /* ============================================================
-           CONTEXT SEGMENT — verbatim from VocabApp.jsx:1442
-           ============================================================ */
-        .va-context-seg {
-            display: flex; gap: 3px;
-            background: var(--tab-track);
-            padding: 3px; border-radius: 11px;
-            margin-bottom: 8px;
-        }
-        .va-context-btn {
-            flex: 1; padding: 8px 4px;
-            border-radius: 8px; border: none;
-            background: transparent;
-            color: var(--text-sub);
-            font-weight: 700; font-size: 12px;
-            cursor: pointer; font-family: inherit;
-            transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center; gap: 4px;
-        }
-        .va-context-btn.active {
-            background: var(--tab-face);
-            color: var(--text);
-            box-shadow: 0 1px 4px var(--shadow);
-        }
-        .va-context-btn.locked {
-            cursor: not-allowed;
-            background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 48%, rgba(255,255,255,.45) 52%, transparent 70%);
-            color: rgba(0, 0, 0, 0.55);
-            border-radius: 9px 9px 8px 8px;
-            border-bottom: 1.5px dotted rgba(0, 0, 0, 0.18);
-        }
-        .va-context-btn.locked svg { width: 10px; height: 10px; }
-
-        /* ============================================================
-           SKILL TAB BAR — verbatim from VocabApp.jsx:1492
-           ============================================================ */
+        /* SKILL TAB BAR — only Reading + Quiz (the ones that exist) */
         .va-skill-wrap { position: relative; margin-bottom: 20px; }
         .va-tab-bar {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3px;
-            background: var(--tab-track);
-            padding: 3px;
-            border-radius: 11px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3px; background: var(--tab-track);
+            padding: 3px; border-radius: 11px;
             position: relative;
         }
-        @media (min-width: 600px) {
-            .va-tab-bar { grid-template-columns: repeat(6, 1fr); }
-        }
         .va-tab-indicator {
-            position: absolute;
-            top: 3px; height: 31px;
+            position: absolute; top: 3px; height: 31px;
             border-radius: 8px;
             background: var(--tab-face);
             box-shadow: 0 1px 4px var(--shadow);
@@ -247,8 +156,7 @@
         .va-tab-btn {
             height: 31px; border: none; background: transparent;
             color: var(--text-muted);
-            font-size: 11px; font-weight: 700;
-            cursor: pointer;
+            font-size: 11px; font-weight: 700; cursor: pointer;
             border-radius: 8px;
             display: flex; align-items: center; justify-content: center; gap: 5px;
             position: relative; z-index: 1;
@@ -267,9 +175,7 @@
         .va-tab-btn.active .tab-icon-sq { opacity: 1; }
         .va-tab-btn .tab-icon-sq svg { width: 12px; height: 12px; }
 
-        /* ============================================================
-           WORD GRID — verbatim from VocabApp.jsx:1834
-           ============================================================ */
+        /* WORD GRID */
         .va-word-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -281,7 +187,6 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes cardAppear { from { opacity: 0; transform: translateY(8px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
-
         .va-word-card {
             background: var(--surface);
             border: 1.5px solid var(--border);
@@ -291,10 +196,8 @@
             transition: all 0.15s;
             box-shadow: var(--card-shadow);
             text-align: center;
-            position: relative;
             min-height: 90px;
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
             animation: cardAppear 280ms ease-out both;
         }
         .va-word-grid > .va-word-card:hover {
@@ -302,34 +205,19 @@
             box-shadow: var(--card-shadow-hover);
             border-color: var(--border-strong);
         }
-        .va-word-card .card-word { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; }
-
-        /* Placeholder panel for non-Reading tabs */
-        .va-placeholder {
-            background: var(--surface);
-            border: 1.5px solid var(--border);
-            border-radius: 14px;
-            padding: 40px 24px;
-            text-align: center;
-            box-shadow: var(--card-shadow);
-            animation: fadeIn 0.4s ease-out;
+        .va-word-card .card-word {
+            font-size: 15px; font-weight: 700;
+            color: var(--text); line-height: 1.3;
         }
-        .va-placeholder svg { width: 36px; height: 36px; color: var(--text-muted); margin-bottom: 8px; }
-        .va-placeholder .ph-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-        .va-placeholder .ph-sub { font-size: 12px; color: var(--text-sub); line-height: 1.6; max-width: 320px; margin: 0 auto; }
 
-        /* ============================================================
-           WORD MODAL — verbatim from VocabApp.jsx:2060
-           ============================================================ */
+        /* WORD MODAL */
         #modalBackdrop {
             position: fixed; inset: 0;
             background: rgba(0, 0, 0, 0.35);
-            opacity: 0;
-            transition: opacity 0.25s ease;
+            opacity: 0; transition: opacity 0.25s ease;
             z-index: 99; pointer-events: none;
         }
         #modalBackdrop.active { opacity: 1; pointer-events: auto; }
-
         .va-word-modal {
             position: fixed;
             left: 0; right: 0; bottom: 0;
@@ -338,11 +226,20 @@
             box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.15);
             transform: translateY(100%);
             transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 100; max-height: 90vh;
+            z-index: 100; max-height: 92vh;
             display: flex; flex-direction: column;
         }
         .va-word-modal.active { transform: translateY(0); }
-
+        @media (min-width: 600px) and (max-height: 1000px) {
+            .va-word-modal {
+                left: 50%; right: auto; bottom: 0; top: 0;
+                transform: translate(-50%, 100%);
+                width: 100%; max-width: 720px;
+                max-height: 100vh; height: 100vh;
+                border-radius: 0;
+            }
+            .va-word-modal.active { transform: translate(-50%, 0); }
+        }
         .modal-top { padding: 12px 16px 8px; flex-shrink: 0; }
         .drag-handle {
             width: 40px; height: 4px;
@@ -359,18 +256,14 @@
             cursor: pointer;
             font-size: 20px;
             display: flex; align-items: center; justify-content: center;
-            color: var(--text);
-            font-family: inherit;
+            color: var(--text); font-family: inherit;
         }
-        .modal-close:hover { background: var(--border); }
-
         .modal-body {
             flex: 1; min-width: 0;
             overflow-y: auto;
             padding: 0 20px 32px;
             text-align: left;
         }
-
         .va-word-head {
             display: flex; gap: 14px; align-items: stretch;
             margin-bottom: 12px;
@@ -381,31 +274,24 @@
             border-right: 2px solid rgba(0, 80, 40, 0.28);
         }
         .va-word-left-inner {
-            display: flex; align-items: flex-start;
-            gap: 10px; margin-bottom: 6px;
-            justify-content: flex-end;
+            display: flex; align-items: flex-start; gap: 10px;
+            margin-bottom: 6px; justify-content: flex-end;
         }
         .speaker-btn {
-            flex-shrink: 0;
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            border: none;
-            background: var(--primary);
-            color: white;
-            cursor: pointer;
-            margin-top: 2px;
+            flex-shrink: 0; width: 32px; height: 32px;
+            border-radius: 50%; border: none;
+            background: var(--primary); color: white;
+            cursor: pointer; margin-top: 2px;
             display: inline-flex; align-items: center; justify-content: center;
             padding: 0;
             box-shadow: 0 2px 6px rgba(0, 144, 64, 0.3);
         }
-        .speaker-btn:hover { background: var(--primary-light); }
         .speaker-btn svg { width: 14px; height: 14px; }
         .word-meta { display: inline-flex; flex-direction: column; min-width: 0; }
         .word-h2 {
             font-size: clamp(20px, 4.2vw, 28px);
             font-weight: 800; line-height: 1.1;
-            margin: 0 0 4px;
-            color: var(--text);
+            margin: 0 0 4px; color: var(--text);
             overflow-wrap: break-word; word-break: break-word;
             text-align: right;
         }
@@ -416,21 +302,14 @@
             text-align: right;
         }
         .va-word-right { flex: 1; padding-left: 4px; }
-        .word-meaning {
-            font-size: 20px; font-weight: 700;
-            color: var(--text);
-            margin: 0 0 6px;
-            line-height: 1.25;
-        }
+        .word-meaning { font-size: 20px; font-weight: 700; color: var(--text); margin: 0 0 6px; line-height: 1.25; }
         .word-paraphrase {
             font-size: 15px; line-height: 1.65;
             margin: 8px 0;
             background: var(--surface-elevated);
-            padding: 11px 16px;
-            border-radius: 10px;
+            padding: 11px 16px; border-radius: 10px;
             border-left: 3px solid var(--accent);
-            color: var(--text);
-            opacity: 0.92;
+            color: var(--text); opacity: 0.92;
         }
         .word-collo {
             font-size: 14px; margin: 8px 0;
@@ -438,13 +317,92 @@
             background: rgba(0, 144, 64, 0.06);
             border-radius: 10px;
             border-left: 3px solid var(--primary);
-            color: var(--text-sub);
-            line-height: 1.5;
+            color: var(--text-sub); line-height: 1.5;
         }
         .word-collo strong { color: var(--primary-dark); font-weight: 700; }
 
         /* ============================================================
-           QUIZ OVERLAY — YouGlish dictation pattern
+           YOUGLISH WORD VIDEO PLAYLIST — verbatim from WordVideoPlaylist.jsx
+           ============================================================ */
+        .yg-section-label {
+            margin-top: 14px;
+            font-size: 11px; font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 0.14em; text-transform: uppercase;
+            margin-bottom: 8px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .yg-section-label svg { width: 12px; height: 12px; }
+        .yg-wrap { display: flex; flex-direction: column; gap: 8px; width: 100%; min-width: 0; }
+        .yg-controls {
+            display: flex; gap: 6px;
+            position: sticky; top: 0; z-index: 5;
+            background: #ffffff;
+            padding: 4px 0 8px;
+            border-bottom: 1px solid #dedad2;
+            margin-bottom: 4px;
+        }
+        .yg-ctrl-btn {
+            flex: 1;
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 4px;
+            padding: 9px 6px;
+            font-size: 13px; font-weight: 600;
+            border: 1px solid #dedad2;
+            background: #ffffff; color: #0f0e0b;
+            border-radius: 6px;
+            cursor: pointer; font-family: inherit;
+            min-width: 0;
+        }
+        .yg-ctrl-btn.outline {
+            border: 2px solid #009040;
+            color: #009040;
+            background: #ffffff;
+        }
+        .yg-ctrl-next {
+            flex: 1.6 1 120px;
+            gap: 8px;
+            padding: 9px 12px;
+            font-weight: 700;
+            border: 2px solid #009040;
+            color: #009040;
+            background: #ffffff;
+            border-radius: 6px;
+        }
+        .yg-skip-label { font-size: 12px; font-weight: 700; letter-spacing: 0.01em; font-variant-numeric: tabular-nums; }
+        .yg-next-label { font-size: 13px; font-weight: 700; letter-spacing: 0.01em; }
+        .yg-playerbox {
+            position: relative;
+            border-radius: 8px;
+            max-width: 100%;
+            overflow: hidden;
+            min-height: 280px;
+        }
+        .yg-playerbox iframe { max-width: 100% !important; width: 100% !important; }
+        .yg-loading {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            color: #9a9790;
+            font-size: 13px; font-weight: 600;
+            pointer-events: none;
+        }
+        .yg-empty {
+            padding: 32px 20px;
+            background: #f2f0eb;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px dashed #dedad2;
+        }
+        .yg-empty-title { font-size: 14px; font-weight: 600; color: #0f0e0b; margin: 0 0 4px; }
+        .yg-empty-hint { font-size: 12px; color: #9a9790; margin: 0; }
+        .yg-empty-hint a { color: #2a4a8a; font-weight: 600; text-decoration: none; }
+        @media (max-width: 480px) {
+            .yg-controls { gap: 4px; }
+            .yg-ctrl-btn { padding: 8px 4px; font-size: 12.5px; }
+        }
+
+        /* ============================================================
+           QUIZ OVERLAY — YouGlish dictation
            ============================================================ */
         #quizOverlay {
             position: fixed; inset: 0;
@@ -466,7 +424,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             margin: auto;
         }
-
         .quiz-header {
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 14px;
@@ -474,56 +431,53 @@
             letter-spacing: 0.1em; text-transform: uppercase;
             font-variant-numeric: tabular-nums;
         }
-
-        /* YouGlish player wrapper — verbatim from YGDictationQuestion.jsx:105 */
-        .yg-player-wrap {
+        .quiz-sentence {
+            background: var(--surface-elevated);
+            border-left: 3px solid var(--accent);
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text);
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .yg-quiz-playerbox {
             position: relative;
             height: 280px;
             overflow: hidden;
             border-radius: 8px;
             background: #000;
         }
-        .yg-player-wrap > div { width: 100%; }
-        .yg-mask {
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
+        .yg-quiz-playerbox > div { width: 100%; }
+        .yg-quiz-mask {
+            position: absolute; left: 0; right: 0; bottom: 0;
             height: 45px;
             background: #000;
             pointer-events: none;
             z-index: 10;
         }
-        .yg-loading {
+        .yg-quiz-loading {
             position: absolute; inset: 0;
             display: flex; align-items: center; justify-content: center;
             color: rgba(255, 255, 255, 0.6);
             font-size: 13px; font-weight: 600;
-            letter-spacing: 0.05em;
             z-index: 5;
         }
         .yg-replay-btn {
             margin-top: 10px; width: 100%;
             padding: 12px;
-            background: #1d4ed8;
-            color: #fff; border: none;
-            border-radius: 8px;
+            background: #1d4ed8; color: #fff;
+            border: none; border-radius: 8px;
             font-size: 14px; font-weight: 700;
             cursor: pointer; font-family: inherit;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             transition: background 0.15s;
         }
-        .yg-replay-btn:hover { background: #1e40af; }
+        .yg-replay-btn:disabled { opacity: 0.5; cursor: default; }
         .yg-replay-btn svg { width: 18px; height: 18px; }
-        .yg-hint {
-            margin-top: 14px;
-            font-size: 13px;
-            color: #64748b;
-            text-align: center;
-        }
-        .yg-choices {
-            display: flex; flex-direction: column;
-            gap: 10px;
-            margin: 20px 0 0;
-        }
+        .yg-hint { margin-top: 14px; font-size: 13px; color: #64748b; text-align: center; }
+        .yg-choices { display: flex; flex-direction: column; gap: 10px; margin: 20px 0 0; }
         .yg-choice {
             border: 2px solid #e2e8f0;
             background: #fff;
@@ -531,36 +485,27 @@
             border-radius: 10px;
             cursor: pointer; font-family: inherit;
             font-size: 16px; font-weight: 600;
-            color: #0f172a;
-            text-align: left;
+            color: #0f172a; text-align: left;
             display: flex; align-items: center; justify-content: space-between;
             transition: all 0.15s;
         }
         .yg-choice:hover:not(:disabled) { border-color: var(--primary); }
         .yg-choice:disabled { cursor: default; }
         .yg-choice.locked { opacity: 0.5; color: #94a3b8; cursor: default; }
-        .yg-choice.correct {
-            border-color: var(--success);
-            background: var(--success-soft);
-        }
-        .yg-choice.wrong {
-            border-color: var(--danger);
-            background: var(--danger-soft);
-        }
+        .yg-choice.correct { border-color: var(--success); background: var(--success-soft); }
+        .yg-choice.wrong { border-color: var(--danger); background: var(--danger-soft); }
         .yg-choice .suffix { font-size: 14px; }
         .yg-choice.correct .suffix { color: var(--success); }
         .yg-choice.wrong .suffix { color: var(--danger); }
 
         .btn-stop {
-            margin-top: 18px;
-            align-self: center;
+            margin-top: 18px; align-self: center;
             border: none; background: none;
             color: var(--text-muted); font-weight: 700;
             font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
             cursor: pointer; padding: 10px;
             font-family: inherit;
         }
-        .btn-stop:hover { color: var(--text); }
 
         /* MILESTONE */
         .milestone-screen {
@@ -586,8 +531,7 @@
         }
         .milestone-score {
             font-size: 88px; font-weight: 800;
-            color: var(--text);
-            margin: 6px 0;
+            color: var(--text); margin: 6px 0;
             letter-spacing: -0.04em; line-height: 1;
             font-variant-numeric: tabular-nums;
         }
@@ -605,16 +549,14 @@
         }
         .action-btn {
             background: var(--primary); color: #fff;
-            border: none;
-            padding: 14px 28px; border-radius: 12px;
+            border: none; padding: 14px 28px;
+            border-radius: 12px;
             font-weight: 700; cursor: pointer;
             width: 100%; margin-top: 8px;
             font-size: 15px; letter-spacing: 0.01em;
             font-family: inherit;
             box-shadow: 0 4px 16px rgba(0, 144, 64, 0.28);
-            transition: transform 0.15s, box-shadow 0.15s;
         }
-        .action-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0, 144, 64, 0.38); }
         .secondary-btn {
             background: transparent;
             color: var(--text-sub);
@@ -623,9 +565,7 @@
             font-weight: 700; cursor: pointer;
             width: 100%; margin-top: 8px;
             font-size: 14px; font-family: inherit;
-            transition: border-color 0.15s, color 0.15s;
         }
-        .secondary-btn:hover { color: var(--text); border-color: var(--primary); }
 
         /* MODE */
         .mode-title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; margin-bottom: 4px; }
@@ -640,11 +580,10 @@
             font-size: 15px; color: var(--text);
             cursor: pointer;
             display: flex; align-items: center; gap: 14px;
-            transition: all 0.15s;
             text-align: left;
             box-shadow: var(--card-shadow);
         }
-        .mode-btn:hover { border-color: var(--primary); background: var(--surface-elevated); transform: translateY(-1px); }
+        .mode-btn:hover { border-color: var(--primary); background: var(--surface-elevated); }
         .mode-btn .mode-num {
             width: 40px; height: 40px;
             display: inline-flex; align-items: center; justify-content: center;
@@ -652,43 +591,23 @@
             background: rgba(0, 144, 64, 0.10);
             color: var(--primary-dark);
             font-weight: 800; font-size: 14px;
-            font-variant-numeric: tabular-nums;
             flex-shrink: 0;
         }
         .mode-btn .mode-label { flex: 1; line-height: 1.2; }
         .mode-btn .mode-label small {
             display: block; font-size: 10px; font-weight: 700;
-            color: var(--text-muted);
-            margin-top: 2px;
+            color: var(--text-muted); margin-top: 2px;
             letter-spacing: 0.1em; text-transform: uppercase;
         }
-        .mode-btn .mode-arrow { color: var(--text-muted); flex-shrink: 0; }
+        .mode-btn .mode-arrow { color: var(--text-muted); }
         .cancel-btn {
-            margin-top: 18px;
-            color: var(--text-muted);
+            margin-top: 18px; color: var(--text-muted);
             background: none; border: none;
             cursor: pointer; font-weight: 700;
             font-family: inherit;
-            font-size: 11px;
-            letter-spacing: 0.14em; text-transform: uppercase;
-            padding: 10px;
+            font-size: 11px; letter-spacing: 0.14em;
+            text-transform: uppercase; padding: 10px;
         }
-        .cancel-btn:hover { color: var(--text); }
-
-        /* TOAST */
-        #toast {
-            position: fixed; left: 50%; bottom: 30px;
-            transform: translate(-50%, 20px);
-            background: var(--primary-dark); color: #fff;
-            padding: 12px 18px; border-radius: 12px;
-            font-size: 13px; font-weight: 600;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-            opacity: 0; pointer-events: none;
-            transition: opacity 0.25s, transform 0.25s;
-            z-index: 9000;
-            max-width: calc(100vw - 40px);
-        }
-        #toast.active { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
     </style>
 </head>
 <body>
@@ -709,31 +628,21 @@
 
 <div class="va-outer" id="mainContent" style="display: none;">
 
-    <!-- HEADER -->
     <header class="va-header">
-        <button class="header-icon-btn" aria-label="Chế độ sáng (cố định)" title="Standalone — light mode">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="4"/>
-                <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5.6 5.6L4.2 4.2M19.8 19.8l-1.4-1.4M5.6 18.4L4.2 19.8M19.8 4.2l-1.4 1.4"/>
-            </svg>
-        </button>
         <div class="va-title">
             <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
             Vocab Garden
         </div>
-        <a href="https://thayphapielts.vercel.app" class="va-back-btn">
-            ← <span class="va-back-text">Trang chính</span>
-        </a>
+        <div class="va-sub">Review Test 1</div>
     </header>
 
-    <!-- REC BAR -->
     <div class="va-rec-bar">
         <div>
             <div class="rec-eyebrow">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 Gợi ý tiếp theo
             </div>
-            <div class="rec-title">Review Test 1 — Reading homework</div>
+            <div class="rec-title">Reading homework — 30 từ vựng</div>
         </div>
         <button class="rec-cta" onclick="switchTab('quiz')">
             <span>Học ngay</span>
@@ -741,31 +650,17 @@
         </button>
     </div>
 
-    <!-- CONTEXT SEGMENT -->
-    <div class="va-context-seg">
-        <button class="va-context-btn active">Trong khóa</button>
-        <button class="va-context-btn locked" onclick="toast('Sau khóa chỉ mở khi tốt nghiệp khóa trên site chính')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Sau khóa
-        </button>
-        <button class="va-context-btn" onclick="toast('Luyện thi: vào site chính để xem')">Luyện thi</button>
-    </div>
-
-    <!-- SKILL TAB BAR -->
     <div class="va-skill-wrap">
         <div class="va-tab-bar" id="tabBar">
             <div class="va-tab-indicator" id="tabIndicator"></div>
-            <!-- 6 tabs rendered by JS -->
         </div>
     </div>
 
-    <!-- CONTENT (switches by tab) -->
     <div id="contentArea">
         <div class="va-word-grid" id="vocabGrid"></div>
     </div>
 </div>
 
-<!-- Word modal -->
 <div id="modalBackdrop" onclick="closeModal()"></div>
 <div class="va-word-modal" id="wordModal">
     <div class="modal-top">
@@ -777,85 +672,73 @@
     <div class="modal-body" id="modalBody"></div>
 </div>
 
-<!-- Quiz overlay -->
 <div id="quizOverlay">
     <div class="quiz-container" id="quizContainer"></div>
 </div>
-
-<!-- Toast -->
-<div id="toast"></div>
 
 <script>
     const synth = window.speechSynthesis;
     let allowedVoices = [];
 
     const VOCAB_DATA = {
-        "to diversify": { ipa: "/daɪˈvɜː.sɪ.faɪ/", meaning: "đa dạng hóa", def: "to make or become more varied in form, range, or activities", syn: ["branch out"], collo: "diversify the portfolio", sentence: "The company needs to ________ its product range to survive." },
-        "to generate income": { ipa: "/ˈdʒen.ə.reɪt ˈɪŋ.kʌm/", meaning: "tạo ra thu nhập", def: "to produce money that is earned from work, business, or investments", syn: ["earn money"], collo: "strategies to generate income", sentence: "Selling assets is one way to ________ in the short term." },
-        "commercial revenues": { ipa: "/kəˈmɜː.ʃəl ˈrev.ə.njuːz/", meaning: "doanh thu thương mại", def: "the income that a company or organization gets from selling goods or services", syn: ["sales turnover"], collo: "increase commercial revenues", sentence: "The airport's ________ have doubled since the renovation." },
-        "a combination of factors": { ipa: "/ə ˌkɒm.bɪˈneɪ.ʃən əv ˈfæk.təz/", meaning: "một tổ hợp các yếu tố", def: "a number of different things that work together to cause a result", syn: ["mix of elements"], collo: "due to a combination of factors", sentence: "The project failed because of ________, including bad timing." },
-        "restrictions on sales": { ipa: "/rɪˈstrɪk.ʃənz ɒn seɪlz/", meaning: "các hạn chế về mặt hàng bán", def: "limits or controls on what can be sold", syn: ["trade barriers"], collo: "impose restrictions on sales", sentence: "The government has lifted some ________ of tobacco." },
-        "security procedures": { ipa: "/sɪˈkjʊə.rə.ti prəˈsiː.dʒəz/", meaning: "các quy trình an ninh", def: "official or accepted ways of doing something to keep people and places safe", syn: ["safety protocols"], collo: "follow security procedures", sentence: "Strict ________ are in place at every entrance." },
-        "dwell time": { ipa: "/ˈdwel ˌtaɪm/", meaning: "thời gian lưu lại", def: "the amount of time someone spends in a particular place", syn: ["waiting time"], collo: "increase passenger dwell time", sentence: "Retailers aim to increase ________ to boost sales." },
-        "global economic downturn": { ipa: "/ˈɡləʊ.bəl ˌek.əˈnɒm.ɪk ˈdaʊn.tɜːn/", meaning: "sự suy thoái kinh tế toàn cầu", def: "a period when the economy of the world is doing badly", syn: ["world recession"], collo: "survive the global economic downturn", sentence: "Many small businesses went bankrupt during the last ________." },
-        "aeronautical revenues": { ipa: "/ˌeə.rəˈnɔː.tɪ.kəl ˈrev.ə.njuːz/", meaning: "doanh thu hàng không", def: "money earned from activities related to aircraft and air travel", syn: ["aviation income"], collo: "primary aeronautical revenues", sentence: "Landing fees are a major part of ________ for airports." },
-        "financial health": { ipa: "/faɪˈnæn.ʃəl helθ/", meaning: "tình hình tài chính", def: "the state of a company's or person's financial situation", syn: ["fiscal condition"], collo: "assess the financial health", sentence: "The audit confirmed the long-term ________ of the organization." },
-        "low-cost carrier sector": { ipa: "/ˌləʊˈkɒst ˈkæ.ri.ə ˈsek.tər/", meaning: "khu vực hàng không giá rẻ", def: "the part of the airline industry that offers cheap flights", syn: ["budget airline industry"], collo: "growth in the low-cost carrier sector", sentence: "The ________ has transformed how people travel across Europe." },
-        "merchandising space": { ipa: "/ˈmɜː.tʃən.daɪ.zɪŋ speɪs/", meaning: "không gian bán hàng", def: "the area used for selling goods, especially related to a brand", syn: ["retail area"], collo: "allocate merchandising space", sentence: "We need more ________ for the new summer collection." },
-        "a radical solution": { ipa: "/ə ˈræd.ɪ.kəl səˈluː.ʃən/", meaning: "một giải pháp triệt để", def: "a new and very different way of solving a problem", syn: ["drastic measure"], collo: "propose a radical solution", sentence: "The board is considering ________ to the debt crisis." },
-        "an array of": { ipa: "/ən əˈreɪ əv/", meaning: "một loạt, một dãy", def: "a large number or wide range of different things", syn: ["a variety of"], collo: "an array of options", sentence: "The shop offers ________ handmade crafts." },
-        "to take on the role of": { ipa: "/tu ˈteɪk ɒn ðə rəʊl əv/", meaning: "đảm nhận vai trò", def: "to start doing a particular job or function", syn: ["act as"], collo: "take on the role of leader", sentence: "She was asked to ________ acting manager." },
-        "a facilitator of access": { ipa: "/ə fəˈsɪl.ɪ.teɪ.tər əv ˈæk.ses/", meaning: "người tạo điều kiện tiếp cận", def: "something that makes it easier to get to a place or use a service", syn: ["access provider"], collo: "act as a facilitator of access", sentence: "The new bridge serves as ________ to the remote island." },
-        "a final destination": { ipa: "/ə ˈfaɪ.nəl ˌdes.tɪˈneɪ.ʃən/", meaning: "điểm đến cuối cùng", def: "the place where someone is going to, at the end of a trip", syn: ["end point"], collo: "reach the final destination", sentence: "After three flights, we finally reached our ________." },
-        "dedicated facilities": { ipa: "/ˈded.ɪ.keɪ.tɪd fəˈsɪl.ə.tiz/", meaning: "cơ sở vật chất chuyên dụng", def: "buildings, equipment, or services intended for a particular purpose", syn: ["customized infrastructure"], collo: "invest in dedicated facilities", sentence: "The hospital has ________ for cancer treatment." },
-        "to reconvert": { ipa: "/ˌriː.kənˈvɜːt/", meaning: "chuyển đổi lại", def: "to change something back to a different form or use", syn: ["transform back"], collo: "reconvert old warehouses", sentence: "They plan to ________ the old cinema into a theater." },
-        "underused areas": { ipa: "/ˌʌn.dəˈjuːzd ˈeə.ri.əz/", meaning: "khu vực chưa hết công suất", def: "spaces or places that are not used as much as they could be", syn: ["idle spaces"], collo: "utilize underused areas", sentence: "The city is trying to turn ________ into community gardens." },
-        "a business venue": { ipa: "/ə ˈbɪz.nɪs ˈven.juː/", meaning: "địa điểm kinh doanh", def: "a place used for business meetings or events", syn: ["meeting location"], collo: "book a business venue", sentence: "This hotel is the premier ________ in the city center." },
-        "to retain airlines": { ipa: "/tu rɪˈteɪn ˈeə.laɪnz/", meaning: "giữ chân các hãng hàng không", def: "to keep airlines using an airport's services", syn: ["keep carriers"], collo: "efforts to retain airlines", sentence: "Lowering landing fees is crucial to ________." },
-        "a determining factor": { ipa: "/ə dɪˈtɜː.mɪ.nɪŋ ˈfæk.tər/", meaning: "yếu tố quyết định", def: "something that controls or decides the result of a situation", syn: ["decisive element"], collo: "the main determining factor", sentence: "Price is often the ________ when choosing a supplier." },
-        "financial prospects": { ipa: "/faɪˈnæn.ʃəl ˈprɒs.pekts/", meaning: "triển vọng tài chính", def: "the possibility of success or profit in the future", syn: ["economic outlook"], collo: "bright financial prospects", sentence: "The new partnership has improved our ________." },
-        "competitive advantage": { ipa: "/kəmˈpet.ɪ.tɪv ədˈvɑːn.tɪdʒ/", meaning: "lợi thế cạnh tranh", def: "a condition that makes a company more successful than others", syn: ["competitive edge"], collo: "gain a competitive advantage", sentence: "Our unique technology gives us a huge ________." },
-        "a commercial venture": { ipa: "/ə kəˈmɜː.ʃəl ˈven.tʃər/", meaning: "một dự án thương mại", def: "a business project or activity, especially one involving risk", syn: ["business enterprise"], collo: "launch a commercial venture", sentence: "The first ________ in space tourism has begun." },
-        "stakeholders": { ipa: "/ˈsteɪkˌhəʊl.dəz/", meaning: "các bên liên quan", def: "people or groups with an interest in the success of an organization", syn: ["interested parties"], collo: "consult all stakeholders", sentence: "The company must consider the needs of all its ________." },
-        "local orientation": { ipa: "/ˈləʊ.kəl ˌɔː.ri.enˈteɪ.ʃən/", meaning: "định hướng địa phương", def: "a focus on serving the needs of the nearby community", syn: ["regional focus"], collo: "strong local orientation", sentence: "The bank maintains a ________ despite being a global brand." },
-        "to be of limited importance": { ipa: "/tu bi əv ˈlɪm.ɪ.tɪd ɪmˈpɔː.təns/", meaning: "có tầm quan trọng hạn chế", def: "to not be very significant or influential", syn: ["insignificant"], collo: "considered to be of limited importance", sentence: "The minor error was ________ to the overall result." },
-        "runner-up": { ipa: "/ˌrʌn.ərˈʌp/", meaning: "người/vật về nhì", def: "a person or team that finishes second in a race or competition", syn: ["second-place finisher"], collo: "finish as runner-up", sentence: "He was the ________ in the national chess championship." }
+        "to diversify": { ipa: "/daɪˈvɜː.sɪ.faɪ/", meaning: "đa dạng hóa", def: "to make or become more varied in form, range, or activities", collo: "diversify the portfolio", sentence: "The company needs to ________ its product range to survive." },
+        "to generate income": { ipa: "/ˈdʒen.ə.reɪt ˈɪŋ.kʌm/", meaning: "tạo ra thu nhập", def: "to produce money that is earned from work, business, or investments", collo: "strategies to generate income", sentence: "Selling assets is one way to ________ in the short term." },
+        "commercial revenues": { ipa: "/kəˈmɜː.ʃəl ˈrev.ə.njuːz/", meaning: "doanh thu thương mại", def: "the income that a company or organization gets from selling goods or services", collo: "increase commercial revenues", sentence: "The airport's ________ have doubled since the renovation." },
+        "a combination of factors": { ipa: "/ə ˌkɒm.bɪˈneɪ.ʃən əv ˈfæk.təz/", meaning: "một tổ hợp các yếu tố", def: "a number of different things that work together to cause a result", collo: "due to a combination of factors", sentence: "The project failed because of ________, including bad timing." },
+        "restrictions on sales": { ipa: "/rɪˈstrɪk.ʃənz ɒn seɪlz/", meaning: "các hạn chế về mặt hàng bán", def: "limits or controls on what can be sold", collo: "impose restrictions on sales", sentence: "The government has lifted some ________ of tobacco." },
+        "security procedures": { ipa: "/sɪˈkjʊə.rə.ti prəˈsiː.dʒəz/", meaning: "các quy trình an ninh", def: "official or accepted ways of doing something to keep people and places safe", collo: "follow security procedures", sentence: "Strict ________ are in place at every entrance." },
+        "dwell time": { ipa: "/ˈdwel ˌtaɪm/", meaning: "thời gian lưu lại", def: "the amount of time someone spends in a particular place", collo: "increase passenger dwell time", sentence: "Retailers aim to increase ________ to boost sales." },
+        "global economic downturn": { ipa: "/ˈɡləʊ.bəl ˌek.əˈnɒm.ɪk ˈdaʊn.tɜːn/", meaning: "sự suy thoái kinh tế toàn cầu", def: "a period when the economy of the world is doing badly", collo: "survive the global economic downturn", sentence: "Many small businesses went bankrupt during the last ________." },
+        "aeronautical revenues": { ipa: "/ˌeə.rəˈnɔː.tɪ.kəl ˈrev.ə.njuːz/", meaning: "doanh thu hàng không", def: "money earned from activities related to aircraft and air travel", collo: "primary aeronautical revenues", sentence: "Landing fees are a major part of ________ for airports." },
+        "financial health": { ipa: "/faɪˈnæn.ʃəl helθ/", meaning: "tình hình tài chính", def: "the state of a company's or person's financial situation", collo: "assess the financial health", sentence: "The audit confirmed the long-term ________ of the organization." },
+        "low-cost carrier sector": { ipa: "/ˌləʊˈkɒst ˈkæ.ri.ə ˈsek.tər/", meaning: "khu vực hàng không giá rẻ", def: "the part of the airline industry that offers cheap flights", collo: "growth in the low-cost carrier sector", sentence: "The ________ has transformed how people travel across Europe." },
+        "merchandising space": { ipa: "/ˈmɜː.tʃən.daɪ.zɪŋ speɪs/", meaning: "không gian bán hàng", def: "the area used for selling goods, especially related to a brand", collo: "allocate merchandising space", sentence: "We need more ________ for the new summer collection." },
+        "a radical solution": { ipa: "/ə ˈræd.ɪ.kəl səˈluː.ʃən/", meaning: "một giải pháp triệt để", def: "a new and very different way of solving a problem", collo: "propose a radical solution", sentence: "The board is considering ________ to the debt crisis." },
+        "an array of": { ipa: "/ən əˈreɪ əv/", meaning: "một loạt, một dãy", def: "a large number or wide range of different things", collo: "an array of options", sentence: "The shop offers ________ handmade crafts." },
+        "to take on the role of": { ipa: "/tu ˈteɪk ɒn ðə rəʊl əv/", meaning: "đảm nhận vai trò", def: "to start doing a particular job or function", collo: "take on the role of leader", sentence: "She was asked to ________ acting manager." },
+        "a facilitator of access": { ipa: "/ə fəˈsɪl.ɪ.teɪ.tər əv ˈæk.ses/", meaning: "người tạo điều kiện tiếp cận", def: "something that makes it easier to get to a place or use a service", collo: "act as a facilitator of access", sentence: "The new bridge serves as ________ to the remote island." },
+        "a final destination": { ipa: "/ə ˈfaɪ.nəl ˌdes.tɪˈneɪ.ʃən/", meaning: "điểm đến cuối cùng", def: "the place where someone is going to, at the end of a trip", collo: "reach the final destination", sentence: "After three flights, we finally reached our ________." },
+        "dedicated facilities": { ipa: "/ˈded.ɪ.keɪ.tɪd fəˈsɪl.ə.tiz/", meaning: "cơ sở vật chất chuyên dụng", def: "buildings, equipment, or services intended for a particular purpose", collo: "invest in dedicated facilities", sentence: "The hospital has ________ for cancer treatment." },
+        "to reconvert": { ipa: "/ˌriː.kənˈvɜːt/", meaning: "chuyển đổi lại", def: "to change something back to a different form or use", collo: "reconvert old warehouses", sentence: "They plan to ________ the old cinema into a theater." },
+        "underused areas": { ipa: "/ˌʌn.dəˈjuːzd ˈeə.ri.əz/", meaning: "khu vực chưa hết công suất", def: "spaces or places that are not used as much as they could be", collo: "utilize underused areas", sentence: "The city is trying to turn ________ into community gardens." },
+        "a business venue": { ipa: "/ə ˈbɪz.nɪs ˈven.juː/", meaning: "địa điểm kinh doanh", def: "a place used for business meetings or events", collo: "book a business venue", sentence: "This hotel is the premier ________ in the city center." },
+        "to retain airlines": { ipa: "/tu rɪˈteɪn ˈeə.laɪnz/", meaning: "giữ chân các hãng hàng không", def: "to keep airlines using an airport's services", collo: "efforts to retain airlines", sentence: "Lowering landing fees is crucial to ________." },
+        "a determining factor": { ipa: "/ə dɪˈtɜː.mɪ.nɪŋ ˈfæk.tər/", meaning: "yếu tố quyết định", def: "something that controls or decides the result of a situation", collo: "the main determining factor", sentence: "Price is often the ________ when choosing a supplier." },
+        "financial prospects": { ipa: "/faɪˈnæn.ʃəl ˈprɒs.pekts/", meaning: "triển vọng tài chính", def: "the possibility of success or profit in the future", collo: "bright financial prospects", sentence: "The new partnership has improved our ________." },
+        "competitive advantage": { ipa: "/kəmˈpet.ɪ.tɪv ədˈvɑːn.tɪdʒ/", meaning: "lợi thế cạnh tranh", def: "a condition that makes a company more successful than others", collo: "gain a competitive advantage", sentence: "Our unique technology gives us a huge ________." },
+        "a commercial venture": { ipa: "/ə kəˈmɜː.ʃəl ˈven.tʃər/", meaning: "một dự án thương mại", def: "a business project or activity, especially one involving risk", collo: "launch a commercial venture", sentence: "The first ________ in space tourism has begun." },
+        "stakeholders": { ipa: "/ˈsteɪkˌhəʊl.dəz/", meaning: "các bên liên quan", def: "people or groups with an interest in the success of an organization", collo: "consult all stakeholders", sentence: "The company must consider the needs of all its ________." },
+        "local orientation": { ipa: "/ˈləʊ.kəl ˌɔː.ri.enˈteɪ.ʃən/", meaning: "định hướng địa phương", def: "a focus on serving the needs of the nearby community", collo: "strong local orientation", sentence: "The bank maintains a ________ despite being a global brand." },
+        "to be of limited importance": { ipa: "/tu bi əv ˈlɪm.ɪ.tɪd ɪmˈpɔː.təns/", meaning: "có tầm quan trọng hạn chế", def: "to not be very significant or influential", collo: "considered to be of limited importance", sentence: "The minor error was ________ to the overall result." },
+        "runner-up": { ipa: "/ˌrʌn.ərˈʌp/", meaning: "người/vật về nhì", def: "a person or team that finishes second in a race or competition", collo: "finish as runner-up", sentence: "He was the ________ in the national chess championship." }
     };
 
-    // ────────────────────────────────────────────────────────────
-    // TAB_CONFIG — verbatim from VocabApp.jsx:528
-    // ────────────────────────────────────────────────────────────
+    // ── 2-tab config — only tabs that exist ──
     const TAB_CONFIG = [
-        { view: 'reading',   label: 'Reading',   color: '#2a4a8a', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>' },
-        { view: 'listening', label: 'Listening', color: '#009040', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>' },
-        { view: 'term_test', label: 'Giữa kỳ',   color: '#7c3aed', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>' },
-        { view: 'review',    label: 'Ôn tập',    color: '#f07800', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>' },
-        { view: 'quiz',      label: 'Quiz',      color: '#dc2626', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"/></svg>' },
-        { view: 'progress',  label: 'Tiến trình',color: '#0ea5e9', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z"/></svg>' },
+        { view: 'reading', label: 'Reading', color: '#2a4a8a', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>' },
+        { view: 'quiz',    label: 'Quiz YouGlish', color: '#dc2626', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"/></svg>' },
     ];
 
-    // SVG strings reused
     const SPEAKER_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
     const ARROW_RIGHT_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
     const REPLAY_SVG = '<svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1 0 3.5-7.1L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M3 3v5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
+    const ICON_PREV  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>';
+    const ICON_REPLAY_FILL = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>';
+    const ICON_NEXT_BOLD = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
     const ICON_TROPHY  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 7H4v2a3 3 0 0 0 3 3M17 7h3v2a3 3 0 0 1-3 3"/></svg>';
     const ICON_SPARK   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.4L21 11l-6.6 2.6L12 20l-2.4-6.4L3 11l6.6-2.6L12 2z"/></svg>';
     const ICON_TARGET  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>';
-    const ICON_REFRESH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg>';
+    const ICON_REFRESH_OUTLINE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg>';
 
     let currentTab = 'reading';
     let audioCtx = null;
-    let toastTimer = null;
+    let modalWidget = null;  // YouGlish widget in word modal
 
-    // ────────────────────────────────────────────────────────────
-    // Voices
-    // ────────────────────────────────────────────────────────────
     function populateVoices() {
         const allVoices = synth.getVoices();
         allowedVoices = allVoices.filter(v =>
             (v.lang.includes('en-US') || v.lang.includes('en-GB')) &&
-            !v.name.includes('David') &&
-            !v.name.includes('Zira')
+            !v.name.includes('David') && !v.name.includes('Zira')
         );
     }
     if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoices;
@@ -864,10 +747,10 @@
         synth.cancel();
         const ut = new SpeechSynthesisUtterance(text);
         if (allowedVoices.length > 0) {
-            const ukNatural = allowedVoices.find(v => v.lang.includes('en-GB') && (v.name.includes('Google') || v.name.includes('Natural')))
+            const v = allowedVoices.find(v => v.lang.includes('en-GB') && (v.name.includes('Google') || v.name.includes('Natural')))
                 || allowedVoices.find(v => v.lang.includes('en-GB'))
                 || allowedVoices[0];
-            ut.voice = ukNatural;
+            ut.voice = v;
         }
         ut.rate = 0.85;
         synth.speak(ut);
@@ -875,16 +758,16 @@
 
     function playSound(type) {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-        oscillator.connect(gainNode); gainNode.connect(audioCtx.destination);
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
         if (type === 'correct') {
-            oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.1);
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.3);
+            osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime); osc.start(); osc.stop(audioCtx.currentTime + 0.3);
         } else {
-            oscillator.type = 'sawtooth'; oscillator.frequency.setValueAtTime(220, audioCtx.currentTime);
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.4);
+            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime); osc.start(); osc.stop(audioCtx.currentTime + 0.4);
         }
     }
 
@@ -894,21 +777,10 @@
         populateVoices();
         buildTabBar();
         buildGrid();
-        // initial indicator position after layout settles
         requestAnimationFrame(() => moveTabIndicator('reading'));
     }
 
-    function toast(msg) {
-        const el = document.getElementById('toast');
-        el.textContent = msg;
-        el.classList.add('active');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.classList.remove('active'), 2400);
-    }
-
-    // ────────────────────────────────────────────────────────────
-    // Tab bar — sliding pill indicator pattern from VocabApp.jsx:1492
-    // ────────────────────────────────────────────────────────────
+    // ── Tab bar ──
     function buildTabBar() {
         const bar = document.getElementById('tabBar');
         const indicator = document.getElementById('tabIndicator');
@@ -918,15 +790,11 @@
             const btn = document.createElement('button');
             btn.className = 'va-tab-btn' + (tab.view === currentTab ? ' active' : '');
             btn.dataset.view = tab.view;
-            btn.innerHTML = `
-                <span class="tab-icon-sq" style="background: ${tab.color}">${tab.svg}</span>
-                ${tab.label}
-            `;
+            btn.innerHTML = `<span class="tab-icon-sq" style="background: ${tab.color}">${tab.svg}</span>${tab.label}`;
             btn.onclick = () => switchTab(tab.view);
             bar.appendChild(btn);
         });
     }
-
     function moveTabIndicator(view) {
         const bar = document.getElementById('tabBar');
         const indicator = document.getElementById('tabIndicator');
@@ -937,43 +805,20 @@
         indicator.style.left = (tRect.left - barRect.left) + 'px';
         indicator.style.width = tRect.width + 'px';
     }
-
     function switchTab(view) {
         currentTab = view;
-        // Update active class
-        document.querySelectorAll('.va-tab-btn').forEach(b => {
-            b.classList.toggle('active', b.dataset.view === view);
-        });
+        document.querySelectorAll('.va-tab-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
         moveTabIndicator(view);
-
-        // Switch content
-        const content = document.getElementById('contentArea');
         if (view === 'reading') {
-            content.innerHTML = '<div class="va-word-grid" id="vocabGrid"></div>';
+            document.getElementById('contentArea').innerHTML = '<div class="va-word-grid" id="vocabGrid"></div>';
             buildGrid();
         } else if (view === 'quiz') {
             openModeSelection();
-        } else if (view === 'review') {
-            openModeSelection();
-        } else {
-            const labels = { listening: 'Listening', term_test: 'Giữa kỳ', progress: 'Tiến trình' };
-            content.innerHTML = `
-                <div class="va-placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>
-                    </svg>
-                    <div class="ph-title">${labels[view]} có trên site chính</div>
-                    <div class="ph-sub">Bản standalone này chỉ chứa từ vựng Reading của Review Test 1. Đăng nhập site chính để mở khóa toàn bộ.</div>
-                </div>
-            `;
         }
     }
-
     window.addEventListener('resize', () => moveTabIndicator(currentTab));
 
-    // ────────────────────────────────────────────────────────────
-    // Word grid + modal
-    // ────────────────────────────────────────────────────────────
+    // ── Word grid ──
     function buildGrid() {
         const grid = document.getElementById('vocabGrid');
         if (!grid) return;
@@ -988,45 +833,11 @@
         });
     }
 
-    function openModal(word) {
-        const info = VOCAB_DATA[word];
-        if (!info) return;
-        const body = document.getElementById('modalBody');
-        body.innerHTML = `
-            <div class="va-word-head">
-                <div class="va-word-left">
-                    <div class="va-word-left-inner">
-                        <button class="speaker-btn" aria-label="Phát âm" onclick="speak(${JSON.stringify(word)})">
-                            ${SPEAKER_SVG}
-                        </button>
-                        <div class="word-meta">
-                            <h2 class="word-h2">${word}</h2>
-                            <span class="word-ipa">${info.ipa}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="va-word-right">
-                    <div class="word-meaning">${info.meaning}</div>
-                </div>
-            </div>
-            <div class="word-paraphrase">${info.def}</div>
-            <div class="word-collo"><strong>Cụm thường gặp:</strong> ${info.collo}</div>
-            <div class="word-collo"><strong>Ví dụ:</strong> ${info.sentence}</div>
-        `;
-        document.getElementById('modalBackdrop').classList.add('active');
-        document.getElementById('wordModal').classList.add('active');
-        speak(word);
-    }
-    function closeModal() {
-        document.getElementById('modalBackdrop').classList.remove('active');
-        document.getElementById('wordModal').classList.remove('active');
-    }
-
     // ────────────────────────────────────────────────────────────
-    // YouGlish loader — verbatim from YGDictationQuestion.jsx:9
+    // YouGlish loader — verbatim from WordVideoPlaylist.jsx
     // ────────────────────────────────────────────────────────────
     const YG_SCRIPT = 'https://youglish.com/public/emb/widget.js';
-    function loadYG() {
+    function loadYouGlish() {
         if (window.YG && window.YG.Widget) return Promise.resolve(window.YG);
         return new Promise((resolve) => {
             const prev = window.onYouglishAPIReady;
@@ -1042,30 +853,142 @@
             }
         });
     }
-
-    // Function-word-aware fallback queries — simplified port from
-    // lib/quiz-shared.js generateFallbackQueriesBoth (in main site).
+    function getPronounceableText(phrase) {
+        if (!phrase) return '';
+        let s = String(phrase);
+        s = s.split(/\s*(?:><|=|\/)\s*/)[0];
+        s = s.replace(/\([^)]*\)/g, '');
+        s = s.replace(/\bsb's\b/gi, "someone's");
+        s = s.replace(/\bsb\b/gi, 'someone');
+        s = s.replace(/\bsth\b/gi, 'something');
+        s = s.replace(/\s+/g, ' ').trim();
+        return s;
+    }
     function generateFallbackQueries(phrase) {
-        const cleaned = phrase.replace(/^to\s+/i, '').replace(/^(a|an|the)\s+/i, '').trim();
+        const cleaned = getPronounceableText(phrase);
+        if (!cleaned) return [];
+        const words = cleaned.split(/\s+/).filter(Boolean);
+        if (words.length <= 1) return [cleaned];
         const queries = [cleaned];
-        const words = cleaned.split(/\s+/);
-        // Last content word
-        if (words.length > 1) queries.push(words[words.length - 1]);
-        // Last 2 words
-        if (words.length > 2) queries.push(words.slice(-2).join(' '));
-        // Strip leading function words
-        const FN = /^(of|in|on|at|to|for|with|by|from|the|a|an)$/i;
-        let drop = 0;
-        while (drop < words.length - 1 && FN.test(words[drop])) drop++;
-        if (drop > 0) queries.push(words.slice(drop).join(' '));
-        return [...new Set(queries)];
+        for (let i = words.length - 1; i >= 1; i--) {
+            queries.push(words.slice(0, i).join(' '));
+        }
+        return queries;
     }
 
     // ────────────────────────────────────────────────────────────
-    // Quiz state
+    // Word modal — embeds WordVideoPlaylist YouGlish inline
+    // ────────────────────────────────────────────────────────────
+    function openModal(word) {
+        const info = VOCAB_DATA[word];
+        if (!info) return;
+        const playerId = 'yg-modal-' + Math.random().toString(36).slice(2, 10);
+        const body = document.getElementById('modalBody');
+        body.innerHTML = `
+            <div class="va-word-head">
+                <div class="va-word-left">
+                    <div class="va-word-left-inner">
+                        <button class="speaker-btn" aria-label="Phát âm" onclick="speak(${JSON.stringify(word)})">${SPEAKER_SVG}</button>
+                        <div class="word-meta">
+                            <h2 class="word-h2">${word}</h2>
+                            <span class="word-ipa">${info.ipa}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="va-word-right">
+                    <div class="word-meaning">${info.meaning}</div>
+                </div>
+            </div>
+            <div class="word-paraphrase">${info.def}</div>
+            <div class="word-collo"><strong>Cụm thường gặp:</strong> ${info.collo}</div>
+            <div class="word-collo"><strong>Ví dụ:</strong> ${info.sentence}</div>
+
+            <div class="yg-section-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Người bản xứ nói thế nào
+            </div>
+            <div class="yg-wrap" id="ygModalWrap">
+                <div class="yg-controls">
+                    <button class="yg-ctrl-btn" onclick="modalWidget?.previous?.()" aria-label="Clip trước">${ICON_PREV}</button>
+                    <button class="yg-ctrl-btn" onclick="modalWidget?.move?.(-5)" aria-label="Lùi 5 giây"><span class="yg-skip-label">−5s</span></button>
+                    <button class="yg-ctrl-btn outline" onclick="modalWidget?.replay?.()" aria-label="Lặp lại">${ICON_REPLAY_FILL}</button>
+                    <button class="yg-ctrl-btn" onclick="modalWidget?.move?.(5)" aria-label="Tiến 5 giây"><span class="yg-skip-label">+5s</span></button>
+                    <button class="yg-ctrl-next" onclick="modalWidget?.next?.()" aria-label="Clip tiếp theo">
+                        <span class="yg-next-label">Clip sau</span>${ICON_NEXT_BOLD}
+                    </button>
+                </div>
+                <div class="yg-playerbox" id="ygPlayerBox">
+                    <div id="${playerId}"></div>
+                    <div class="yg-loading" id="ygModalLoading">Đang tải clip…</div>
+                </div>
+            </div>
+        `;
+        document.getElementById('modalBackdrop').classList.add('active');
+        document.getElementById('wordModal').classList.add('active');
+        speak(word);
+
+        // Load YouGlish widget for this word
+        const queries = generateFallbackQueries(word);
+        let queryIdx = 0;
+        loadYouGlish().then(YG => {
+            if (!YG) return;
+            try {
+                const el = document.getElementById(playerId);
+                if (!el) return;
+                const measured = el.parentElement?.clientWidth || el.clientWidth || 480;
+                const widgetWidth = Math.min(480, Math.max(200, Math.round(measured)));
+                const w = new YG.Widget(playerId, {
+                    width: widgetWidth,
+                    height: 600,
+                    components: 8,
+                    events: {
+                        onFetchDone: (e) => {
+                            if (e.totalResult === 0 && queryIdx < queries.length - 1) {
+                                queryIdx++;
+                                try { w.fetch(queries[queryIdx], 'English', 'us'); } catch {}
+                                return;
+                            }
+                            if (e.totalResult === 0) {
+                                const pb = document.getElementById('ygPlayerBox');
+                                if (pb) pb.innerHTML = `
+                                    <div class="yg-empty">
+                                        <p class="yg-empty-title">Chưa có clip cho từ này</p>
+                                        <p class="yg-empty-hint">Thử <a href="https://youglish.com/pronounce/${encodeURIComponent(getPronounceableText(word))}/english" target="_blank" rel="noopener noreferrer">tìm rộng hơn</a>.</p>
+                                    </div>`;
+                            }
+                        },
+                        onPlayerReady: () => {
+                            document.getElementById('ygModalLoading')?.remove();
+                        },
+                        onPlayerStateChange: (e) => {
+                            const state = typeof e === 'number' ? e : (e?.data ?? e?.state);
+                            if (state === 0) {
+                                try { modalWidget?.replay?.(); } catch {}
+                            }
+                        },
+                    },
+                });
+                modalWidget = w;
+                w.fetch(queries[0], 'English', 'us');
+            } catch (err) {
+                console.error(err);
+                const loading = document.getElementById('ygModalLoading');
+                if (loading) loading.textContent = 'Không tải được clip';
+            }
+        });
+    }
+    function closeModal() {
+        document.getElementById('modalBackdrop').classList.remove('active');
+        document.getElementById('wordModal').classList.remove('active');
+        try { modalWidget?.close?.(); } catch {}
+        modalWidget = null;
+    }
+
+    // ────────────────────────────────────────────────────────────
+    // QUIZ — YouGlish dictation
     // ────────────────────────────────────────────────────────────
     let quizQueue = [];
-    let currentQuiz = null;  // { target, distractors, meaning, choices, picked, hasPlayed, widget }
+    let currentQuiz = null;
     let wrongAnswerBuffer = [];
     let sessionStats = { correctInMilestone: 0, questionsInMilestone: 0, totalCorrect: 0, milestoneSize: 10, currentLimit: 10 };
 
@@ -1075,7 +998,7 @@
         const total = Object.keys(VOCAB_DATA).length;
         container.innerHTML = `
             <div class="milestone-screen">
-                <div class="mode-title">YouGlish Dictation</div>
+                <div class="mode-title">Quiz YouGlish Dictation</div>
                 <div class="mode-sub">Nghe clip → chọn đúng từ. Chọn số câu để bắt đầu</div>
                 <div class="mode-grid">
                     <button class="mode-btn" onclick="startQuiz(10)">
@@ -1098,7 +1021,6 @@
             </div>
         `;
     }
-
     function startQuiz(limit) {
         sessionStats.currentLimit = limit;
         sessionStats.milestoneSize = limit;
@@ -1110,7 +1032,6 @@
         sessionStats.totalCorrect = 0;
         nextQuestion();
     }
-
     function shuffle(arr) {
         const a = [...arr];
         for (let i = a.length - 1; i > 0; i--) {
@@ -1119,32 +1040,32 @@
         }
         return a;
     }
-
     function closeQuiz() {
         document.getElementById('quizOverlay').style.display = 'none';
-        if (currentQuiz?.widget) {
-            try { currentQuiz.widget.replay = () => {}; } catch {}
-        }
+        try { currentQuiz?.widget?.close?.(); } catch {}
         currentQuiz = null;
     }
-
+    function maskWord(str, target) {
+        const cleanTarget = target.replace(/^to\s+/, '').replace(/^(a|an|the)\s+/, '');
+        const regex = new RegExp(cleanTarget.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi');
+        return str.replace(regex, '________');
+    }
     function nextQuestion() {
         if (sessionStats.questionsInMilestone >= sessionStats.milestoneSize && quizQueue.length > 0) return showMilestone();
         if (quizQueue.length === 0 && wrongAnswerBuffer.length > 0) quizQueue.push(wrongAnswerBuffer.shift());
         if (quizQueue.length === 0) return showMilestone(true);
 
         const target = quizQueue.shift();
-        const targetMeaning = VOCAB_DATA[target].meaning;
+        const info = VOCAB_DATA[target];
         const distractors = Object.keys(VOCAB_DATA)
             .filter(w => w !== target)
             .sort(() => Math.random() - 0.5)
             .slice(0, 2);
         const choices = shuffle([target, ...distractors]);
 
-        currentQuiz = { target, meaning: targetMeaning, distractors, choices, picked: null, hasPlayed: false, widget: null };
+        currentQuiz = { target, meaning: info.meaning, sentence: info.sentence, choices, picked: null, hasPlayed: false, widget: null };
         renderQuizQuestion();
     }
-
     function renderQuizQuestion() {
         const q = currentQuiz;
         const container = document.getElementById('quizContainer');
@@ -1154,21 +1075,17 @@
                 <span>Câu ${sessionStats.questionsInMilestone + 1} / ${sessionStats.milestoneSize}</span>
                 <span>YouGlish Dictation</span>
             </div>
-            <div class="yg-player-wrap">
+            <div class="quiz-sentence">"${maskWord(q.sentence, q.target)}"</div>
+            <div class="yg-quiz-playerbox">
                 <div id="${playerId}"></div>
-                <div class="yg-loading" id="ygLoading">Đang tải clip…</div>
-                <div class="yg-mask"></div>
+                <div class="yg-quiz-loading" id="ygQuizLoading">Đang tải clip…</div>
+                <div class="yg-quiz-mask"></div>
             </div>
-            <button class="yg-replay-btn" id="ygReplay" disabled style="opacity:0.5;cursor:default;">
-                ${REPLAY_SVG}
-                Nghe lại clip
-            </button>
-            <div class="yg-hint" id="ygHint">Bấm play trên clip để mở khoá câu trả lời</div>
+            <button class="yg-replay-btn" id="ygReplay" disabled>${REPLAY_SVG}Nghe lại clip</button>
+            <div class="yg-hint" id="ygHint">Bấm play trên clip để mở khoá đáp án</div>
             <div class="yg-choices" id="ygChoices"></div>
             <button class="btn-stop" onclick="closeQuiz()">Dừng chơi</button>
         `;
-
-        // Render locked choice buttons
         const choicesEl = document.getElementById('ygChoices');
         q.choices.forEach((choice, i) => {
             const btn = document.createElement('button');
@@ -1179,15 +1096,15 @@
             choicesEl.appendChild(btn);
         });
 
-        // Load YouGlish widget
         const queries = generateFallbackQueries(q.target);
         let queryIdx = 0;
-        loadYG().then(YG => {
+        loadYouGlish().then(YG => {
             if (!YG || !currentQuiz || currentQuiz.target !== q.target) return;
             try {
-                const outer = document.getElementById(playerId)?.parentElement;
-                const measured = outer?.clientWidth || 480;
-                const widget = new YG.Widget(playerId, {
+                const el = document.getElementById(playerId);
+                if (!el) return;
+                const measured = el.parentElement?.clientWidth || 480;
+                const w = new YG.Widget(playerId, {
                     width: Math.min(480, Math.max(280, measured)),
                     height: 600,
                     components: 16,
@@ -1196,9 +1113,14 @@
                             if (!currentQuiz || currentQuiz.target !== q.target) return;
                             if (e.totalResult === 0 && queryIdx < queries.length - 1) {
                                 queryIdx++;
-                                try { widget.fetch(queries[queryIdx], 'English', 'uk'); } catch {}
-                            } else {
-                                document.getElementById('ygLoading')?.remove();
+                                try { w.fetch(queries[queryIdx], 'English', 'us'); } catch {}
+                                return;
+                            }
+                            document.getElementById('ygQuizLoading')?.remove();
+                            const r = document.getElementById('ygReplay');
+                            if (r) {
+                                r.disabled = false;
+                                r.onclick = () => { try { w.replay?.(); } catch {} };
                             }
                         },
                         onPlayerStateChange: (e) => {
@@ -1209,25 +1131,16 @@
                                 unlockChoices();
                             }
                             if (state === 0) {
-                                try { widget.replay?.(); } catch {}
+                                try { w.replay?.(); } catch {}
                             }
                         }
                     }
                 });
-                currentQuiz.widget = widget;
-                try { widget.fetch(queries[0], 'English', 'uk'); } catch {}
-                // Enable replay button after widget loads
-                const replayBtn = document.getElementById('ygReplay');
-                if (replayBtn) {
-                    replayBtn.disabled = false;
-                    replayBtn.style.opacity = '1';
-                    replayBtn.style.cursor = 'pointer';
-                    replayBtn.onclick = () => { try { widget.replay?.(); } catch {} };
-                }
+                currentQuiz.widget = w;
+                w.fetch(queries[0], 'English', 'us');
             } catch (err) { console.error(err); }
         });
     }
-
     function unlockChoices() {
         document.getElementById('ygHint')?.remove();
         document.querySelectorAll('#ygChoices .yg-choice').forEach(b => {
@@ -1235,13 +1148,11 @@
             b.disabled = false;
         });
     }
-
     function handlePick(choice, btn) {
         const q = currentQuiz;
         if (!q || q.picked || !q.hasPlayed) return;
         q.picked = choice;
         const isCorrect = choice === q.target;
-
         document.querySelectorAll('#ygChoices .yg-choice').forEach(b => {
             b.disabled = true;
             const text = b.querySelector('span').textContent;
@@ -1254,31 +1165,21 @@
                 if (suffix) suffix.textContent = '✗';
             }
         });
-
-        if (isCorrect) {
-            sessionStats.totalCorrect++;
-            sessionStats.correctInMilestone++;
-            playSound('correct');
-        } else {
-            playSound('wrong');
-            wrongAnswerBuffer.push(q.target);
-        }
+        if (isCorrect) { sessionStats.totalCorrect++; sessionStats.correctInMilestone++; playSound('correct'); }
+        else { playSound('wrong'); wrongAnswerBuffer.push(q.target); }
         sessionStats.questionsInMilestone++;
-        setTimeout(nextQuestion, 1800);
+        setTimeout(nextQuestion, 2000);
     }
-
     function showMilestone(isFinal = false) {
         const total = isFinal ? sessionStats.questionsInMilestone : sessionStats.milestoneSize;
         const correct = sessionStats.correctInMilestone;
         const percent = total > 0 ? Math.round((correct / total) * 100) : 0;
-
         let message = "", iconHTML = "", iconClass = "mid";
-        if (percent === 100)       { message = "Hoàn hảo! Bạn nắm chắc cả 30 từ rồi đó."; iconHTML = ICON_TROPHY; iconClass = "win"; }
-        else if (percent >= 90)    { message = "Gần như hoàn hảo. Một chút nữa thôi."; iconHTML = ICON_SPARK; iconClass = "win"; }
-        else if (percent >= 80)    { message = "Khá tốt — bạn đang đi đúng hướng."; iconHTML = ICON_SPARK; iconClass = "mid"; }
-        else if (percent >= 50)    { message = "Vượt qua mốc trung bình. Tiếp tục luyện thêm nhé."; iconHTML = ICON_TARGET; iconClass = "mid"; }
-        else                       { message = "Cần ôn lại một chút. Đừng bỏ cuộc — học lại từ sai là cách nhanh nhất."; iconHTML = ICON_REFRESH; iconClass = "low"; }
-
+        if (percent === 100)    { message = "Hoàn hảo! Bạn nắm chắc cả 30 từ rồi đó."; iconHTML = ICON_TROPHY; iconClass = "win"; }
+        else if (percent >= 90) { message = "Gần như hoàn hảo. Một chút nữa thôi."; iconHTML = ICON_SPARK; iconClass = "win"; }
+        else if (percent >= 80) { message = "Khá tốt — bạn đang đi đúng hướng."; iconHTML = ICON_SPARK; iconClass = "mid"; }
+        else if (percent >= 50) { message = "Vượt qua mốc trung bình. Tiếp tục luyện thêm nhé."; iconHTML = ICON_TARGET; iconClass = "mid"; }
+        else                    { message = "Cần ôn lại một chút. Đừng bỏ cuộc."; iconHTML = ICON_REFRESH_OUTLINE; iconClass = "low"; }
         const container = document.getElementById('quizContainer');
         container.innerHTML = `
             <div class="milestone-screen">
@@ -1286,28 +1187,19 @@
                 <div class="milestone-title">${isFinal ? 'Kết quả' : 'Checkpoint'}</div>
                 <div class="milestone-score">${percent}<span class="pct">%</span></div>
                 <p class="milestone-msg">${message}</p>
-                ${percent < 50 ?
-                    `<button class="action-btn" onclick="retryFailed()">Học lại từ sai</button>` :
-                    (quizQueue.length > 0 ? `<button class="action-btn" onclick="resume()">Tiếp tục</button>` : '')
-                }
+                ${percent < 50 ? `<button class="action-btn" onclick="retryFailed()">Học lại từ sai</button>` :
+                    (quizQueue.length > 0 ? `<button class="action-btn" onclick="resume()">Tiếp tục</button>` : '')}
                 <button class="secondary-btn" onclick="closeQuiz()">${isFinal || (percent < 50 && wrongAnswerBuffer.length == 0) ? 'Về trang chính' : 'Dừng lại'}</button>
             </div>
         `;
     }
-
     function retryFailed() {
-        if (wrongAnswerBuffer.length > 0) {
-            quizQueue = [...wrongAnswerBuffer];
-            wrongAnswerBuffer = [];
-        } else {
-            startQuiz(sessionStats.currentLimit);
-            return;
-        }
+        if (wrongAnswerBuffer.length > 0) { quizQueue = [...wrongAnswerBuffer]; wrongAnswerBuffer = []; }
+        else { startQuiz(sessionStats.currentLimit); return; }
         sessionStats.correctInMilestone = 0;
         sessionStats.questionsInMilestone = 0;
         nextQuestion();
     }
-
     function resume() {
         sessionStats.correctInMilestone = 0;
         sessionStats.questionsInMilestone = 0;
