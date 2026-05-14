@@ -3,194 +3,645 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vocab of Review test 1 Homework</title>
+    <meta name="theme-color" content="#2a4a8a">
+    <title>Vocab — Review Test 1 · IELTS Thầy Pháp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Import font JetBrains Mono cho IPA sắc nét hơn */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
-        
+        /* ============================================================
+           BRAND TOKENS — synced with main IELTS Thầy Pháp platform
+           ============================================================ */
         :root {
-            --primary: #2e7d32;
-            --primary-dark: #1b5e20;
-            --secondary: #4caf50;
-            --accent: #a5d6a7;
-            --bg: #f1f8e9;
-            --white: #ffffff;
-            --danger: #ef5350;
-            --success: #66bb6a;
-            /* Combo màu mới cho nút Quiz - Lavender/Soft Purple dịu mắt */
-            --quiz-btn-bg: #7e57c2; 
-            --quiz-btn-hover: #5e35b1;
+            --blue: #2a4a8a;
+            --blue-soft: #4a70c0;
+            --blue-tint: rgba(42, 74, 138, 0.08);
+            --gold: #f07800;
+            --gold-soft: #ffd080;
+            --gold-tint: #fff7ec;
+            --ink: #0f0e0b;
+            --ink2: #4a4840;
+            --ink3: #7a7870;
+            --bg: #f2f0eb;
+            --card: #ffffff;
+            --border: #dedad2;
+            --border-strong: #c8c4ba;
+            --danger: #e02020;
+            --success: #009040;
+            --violet: #7c3aed;
+            --shadow-sm: 0 1px 2px rgba(15, 14, 11, 0.04);
+            --shadow-md: 0 4px 14px rgba(15, 14, 11, 0.06);
+            --shadow-lg: 0 12px 36px rgba(15, 14, 11, 0.10);
+            /* Legacy aliases — keep so inline color refs in JS still resolve */
+            --primary: var(--blue);
+            --primary-dark: var(--blue);
+            --secondary: var(--blue-soft);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: #333;
-            line-height: 1.6;
-            padding: 10px;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.55;
+            padding: 16px 12px 80px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* ============================================================
+           SPLASH — audio unlocker
+           ============================================================ */
         #audioUnlocker {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
+            position: fixed; inset: 0;
+            background: var(--bg);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 9999; text-align: center; padding: 20px;
+            z-index: 9999; text-align: center; padding: 24px;
         }
-
+        .splash-mark { width: 84px; height: 84px; margin-bottom: 20px; }
+        .splash-eyebrow {
+            font-size: 11px; font-weight: 700;
+            color: var(--ink2);
+            letter-spacing: 0.14em; text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .splash-eyebrow .accent { color: var(--gold); }
+        .splash-title {
+            font-size: clamp(28px, 7vw, 44px);
+            font-weight: 800; color: var(--ink);
+            letter-spacing: -0.025em; line-height: 1.05;
+            margin-bottom: 10px;
+        }
+        .splash-sub {
+            font-size: 15px; color: var(--ink2);
+            margin-bottom: 32px; font-weight: 500;
+        }
         .unlock-btn {
-            background: white; color: var(--primary-dark); padding: 18px 45px; border-radius: 50px;
-            font-weight: 700; border: none; cursor: pointer; font-size: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); margin-top: 20px;
+            background: var(--blue); color: #fff;
+            padding: 16px 40px; border-radius: 14px;
+            font-weight: 700; border: none; cursor: pointer;
+            font-size: 16px; font-family: inherit;
+            letter-spacing: 0.01em;
+            box-shadow: 0 6px 24px rgba(42, 74, 138, 0.28);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
-
-        .container {
-            max-width: 1100px; margin: 0 auto; background: var(--white);
-            border-radius: 20px; padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-        }
-
-        header { text-align: center; margin-bottom: 25px; }
-        h1 { color: var(--primary-dark); font-size: clamp(22px, 7vw, 32px); margin-bottom: 8px; font-weight: 800; }
-
-        .instruction {
-            color: #555;
-            font-size: 15px;
-            font-weight: 500;
-            margin-bottom: 15px;
-            background: #e8f5e9;
-            padding: 8px 15px;
-            border-radius: 10px;
-            display: inline-block;
-        }
-
-        .controls {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px; padding: 15px; background: #f9fdf9;
-            border-radius: 16px; gap: 15px; flex-direction: column;
-        }
-
-        @media (min-width: 768px) { .controls { flex-direction: row; } }
-
-        select { flex: 1; padding: 14px; border-radius: 12px; border: 2px solid var(--accent); outline: none; font-size: 16px; }
-
-        /* Nút Quiz với màu Tím oải hương dịu mắt */
-        .btn-quiz { 
-            background: var(--quiz-btn-bg); color: white; padding: 18px 24px; border-radius: 14px; 
-            font-weight: 700; border: none; cursor: pointer; width: 100%; font-size: 17px;
-            box-shadow: 0 4px 12px rgba(126, 87, 194, 0.3);
-            transition: all 0.3s ease;
-        }
-        .btn-quiz:hover {
-            background: var(--quiz-btn-hover);
+        .unlock-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(94, 53, 177, 0.4);
+            box-shadow: 0 10px 32px rgba(42, 74, 138, 0.38);
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
-        @media (min-width: 480px) { .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; } }
+        /* ============================================================
+           PAGE HEADER
+           ============================================================ */
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .brand-row {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 24px;
+        }
+        .compactmark-mini { width: 32px; height: 32px; flex-shrink: 0; }
+        .brand-wordmark {
+            display: flex; flex-direction: column; line-height: 1.05;
+        }
+        .brand-wordmark .b1 {
+            font-size: 10px; font-weight: 700;
+            color: var(--ink); letter-spacing: 0.06em;
+        }
+        .brand-wordmark .b2 {
+            font-size: 14px; font-weight: 800; color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+        .brand-wordmark .b2 .accent { color: var(--gold); }
+
+        header.page-head { margin-bottom: 22px; }
+        h1.page-title {
+            font-size: clamp(24px, 5.5vw, 34px);
+            font-weight: 800; color: var(--ink);
+            letter-spacing: -0.025em;
+            margin-bottom: 4px;
+            line-height: 1.1;
+        }
+        .page-sub {
+            font-size: 14px; color: var(--ink2);
+            font-weight: 500;
+        }
+
+        .instruction-pill {
+            margin-top: 14px;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 8px 14px; border-radius: 999px;
+            font-size: 13px; color: var(--ink2); font-weight: 600;
+        }
+        .instruction-pill svg { color: var(--blue); flex-shrink: 0; }
+
+        /* ============================================================
+           CONTROLS BAR
+           ============================================================ */
+        .controls {
+            display: flex; align-items: stretch;
+            margin: 0 0 22px;
+            padding: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            gap: 10px;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+        }
+        @media (min-width: 720px) {
+            .controls { flex-direction: row; padding: 14px; align-items: center; }
+        }
+
+        .voice-wrap { flex: 1; position: relative; width: 100%; }
+        .voice-wrap::after {
+            content: '';
+            position: absolute; right: 16px; top: 50%;
+            transform: translateY(-65%) rotate(45deg);
+            width: 7px; height: 7px;
+            border-right: 2px solid var(--ink2);
+            border-bottom: 2px solid var(--ink2);
+            pointer-events: none;
+        }
+        select#voiceSelect {
+            width: 100%;
+            padding: 12px 36px 12px 14px;
+            border-radius: 12px;
+            border: 1.5px solid var(--border);
+            outline: none;
+            font-size: 14px; font-family: inherit; font-weight: 600;
+            color: var(--ink); background: var(--card);
+            appearance: none; -webkit-appearance: none;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+        select#voiceSelect:focus { border-color: var(--blue); }
+
+        .btn-quiz {
+            background: var(--blue); color: #fff;
+            padding: 14px 22px; border-radius: 14px;
+            font-weight: 700; border: none; cursor: pointer;
+            width: 100%; font-size: 15px; font-family: inherit;
+            letter-spacing: 0.01em;
+            box-shadow: 0 4px 18px rgba(42, 74, 138, 0.22);
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        @media (min-width: 720px) { .btn-quiz { width: auto; flex-shrink: 0; } }
+        .btn-quiz:hover { transform: translateY(-1px); box-shadow: 0 8px 26px rgba(42, 74, 138, 0.32); }
+        .btn-quiz svg { width: 18px; height: 18px; }
+
+        /* ============================================================
+           WORD GRID
+           ============================================================ */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+        @media (min-width: 600px) {
+            .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+        }
 
         .card {
-            height: 110px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 18px; display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 15px; font-weight: 600; text-align: center; padding: 12px; cursor: pointer;
-            transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 12px;
+            min-height: 92px;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            font-size: 14px; font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+            animation: cardAppear 280ms ease-out both;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--blue);
+            box-shadow: var(--shadow-md);
+        }
+        .card.active {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(42, 74, 138, 0.14), var(--shadow-md);
+        }
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(8px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
+        /* ============================================================
+           WORD DETAIL — bottom sheet (matches main site WordModal)
+           ============================================================ */
         .card .details {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
-            width: calc(100% - 40px); max-width: 420px; background: #1b5e20;
-            padding: 25px; border-radius: 24px; box-shadow: 0 -5px 40px rgba(0,0,0,0.4);
-            opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 100;
-            color: white;
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            margin: 0 auto;
+            width: calc(100% - 24px);
+            max-width: 480px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            padding: 16px 20px 24px;
+            box-shadow: 0 -10px 40px rgba(15, 14, 11, 0.15);
+            opacity: 0;
+            transform: translate(0, 100%);
+            transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+            z-index: 100;
+            text-align: left;
+            pointer-events: none;
+            inset-inline: 12px;
         }
-        .card.active .details { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+        .card.active .details {
+            opacity: 1;
+            transform: translate(0, 0);
+            pointer-events: auto;
+        }
+        .details .drag-handle {
+            width: 40px; height: 4px;
+            background: var(--border-strong);
+            border-radius: 2px;
+            margin: 0 auto 14px;
+        }
+        .details .word-head {
+            display: flex; align-items: flex-start; gap: 12px;
+            margin-bottom: 14px;
+        }
+        .details .speaker-btn {
+            flex-shrink: 0; width: 36px; height: 36px;
+            border-radius: 50%;
+            border: none; background: var(--blue); color: #fff;
+            cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(42, 74, 138, 0.25);
+            transition: transform 0.12s, box-shadow 0.12s;
+        }
+        .details .speaker-btn:hover { transform: scale(1.06); box-shadow: 0 4px 12px rgba(42, 74, 138, 0.32); }
+        .details .speaker-btn svg { width: 16px; height: 16px; }
+        .details .word-block { min-width: 0; flex: 1; }
+        .details .word-text {
+            font-size: 19px; font-weight: 800;
+            color: var(--ink); line-height: 1.15;
+            word-break: break-word;
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
+        }
+        .details .ipa {
+            display: inline-block;
+            font-size: 13px; font-weight: 600;
+            color: var(--blue);
+            letter-spacing: 0.3px;
+            background: var(--blue-tint);
+            padding: 2px 8px; border-radius: 4px;
+        }
+        .details .def {
+            font-size: 13px; line-height: 1.55;
+            color: var(--ink2);
+            background: var(--bg);
+            padding: 10px 12px;
+            border-radius: 10px;
+            border-left: 3px solid var(--blue);
+            margin-bottom: 10px;
+        }
+        .details .meaning {
+            font-size: 16px; font-weight: 700; color: var(--ink);
+            padding: 10px 12px;
+            background: var(--gold-tint);
+            border-left: 3px solid var(--gold);
+            border-radius: 10px;
+            line-height: 1.35;
+        }
 
+        /* ============================================================
+           QUIZ OVERLAY
+           ============================================================ */
         #quizOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.97); display: none; align-items: center; justify-content: center; z-index: 1000;
+            position: fixed; inset: 0;
+            background: rgba(15, 14, 11, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: none;
+            align-items: center; justify-content: center;
+            z-index: 1000; padding: 12px;
         }
-
         .quiz-container {
-            background: white; width: 95%; max-width: 550px; padding: 30px 20px;
-            border-radius: 28px; text-align: center; position: relative; overflow: hidden;
-            min-height: 520px; display: flex; flex-direction: column;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            background: var(--card);
+            width: 100%;
+            max-width: 540px;
+            padding: 28px 22px 18px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            min-height: 520px;
+            display: flex; flex-direction: column;
+            box-shadow: var(--shadow-lg);
         }
 
         .timer-bar {
-            position: absolute; top: 0; left: 0; height: 8px; background: var(--secondary);
-            width: 100%; transition: none;
+            position: absolute; top: 0; left: 0;
+            height: 4px;
+            background: var(--blue);
+            width: 100%;
+            transition: width 1s linear;
         }
 
-        .quiz-header { display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 16px; color: #777; font-weight: 700; }
-        
-        .question-text { 
-            font-size: 1.3rem; 
-            font-weight: 800; 
-            margin-bottom: 20px; 
-            color: #111; 
-            min-height: 100px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 0 10px;
+        .quiz-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 18px;
+            font-size: 11px; color: var(--ink2); font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #questionType {
+            font-size: 10px; font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--ink);
+            min-height: 96px;
+            display: flex; align-items: center; justify-content: center;
+            padding: 0 6px;
+            line-height: 1.45;
+            text-align: center;
+        }
+
+        .hint-text {
+            background: var(--gold-tint);
+            border-left: 3px solid var(--gold);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 18px;
+            color: var(--ink2); font-weight: 600;
             line-height: 1.4;
         }
 
-        .hint-text { background: #f5f5f5; padding: 12px; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 14px; margin-bottom: 25px; color: #444; border: 1px dashed #ccc; }
-
         .opt-btn {
-            display: block; width: 100%; padding: 16px; margin: 8px 0;
-            border: 2px solid #eee; border-radius: 16px; background: white;
-            cursor: pointer; font-family: inherit; font-weight: 600; transition: all 0.2s;
-            font-size: 17px; color: #333;
+            display: block; width: 100%;
+            padding: 14px 16px; margin: 8px 0;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            background: var(--card);
+            cursor: pointer; font-family: inherit; font-weight: 600;
+            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+            font-size: 15px;
+            color: var(--ink);
+            text-align: left;
+            line-height: 1.4;
         }
+        .opt-btn:hover { border-color: var(--blue); background: #f8f9fb; }
         .opt-btn:active { transform: scale(0.98); }
-        .opt-btn.correct { background: var(--success) !important; color: white; border-color: var(--success); box-shadow: 0 4px 12px rgba(102, 187, 106, 0.4); }
-        .opt-btn.wrong { background: var(--danger) !important; color: white; border-color: var(--danger); box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4); }
-        
-        .milestone-screen { padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
-        .milestone-score { font-size: 72px; font-weight: 900; color: var(--primary); margin: 15px 0; letter-spacing: -2px; }
-        .milestone-msg { font-weight: 700; color: #333; margin-bottom: 30px; font-size: 20px; padding: 0 10px; line-height: 1.5; }
-        
-        .action-btn { background: var(--primary); color: white; border: none; padding: 20px 30px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 15px; font-size: 18px; }
-        .secondary-btn { background: #f0f0f0; color: #555; border: none; padding: 16px 30px; border-radius: 16px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 12px; font-size: 16px; }
-
-        /* Font IPA góc cạnh và nét hơn */
-        .ipa { 
-            font-family: 'JetBrains Mono', monospace; 
-            background: rgba(255,255,255,0.15); 
-            padding: 4px 12px; 
-            border-radius: 4px; 
-            font-size: 0.9em; 
-            display: inline-block; 
-            margin-bottom: 10px;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(255,255,255,0.1);
+        .opt-btn.correct {
+            background: var(--success) !important;
+            color: #fff !important;
+            border-color: var(--success);
+            box-shadow: 0 4px 14px rgba(0, 144, 64, 0.28);
         }
+        .opt-btn.wrong {
+            background: var(--danger) !important;
+            color: #fff !important;
+            border-color: var(--danger);
+            box-shadow: 0 4px 14px rgba(224, 32, 32, 0.28);
+        }
+
+        .btn-stop {
+            margin-top: auto;
+            align-self: center;
+            border: none; background: none;
+            color: var(--ink3); font-weight: 700;
+            font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+            cursor: pointer; padding: 14px;
+            font-family: inherit;
+        }
+        .btn-stop:hover { color: var(--ink); }
+
+        /* ============================================================
+           MILESTONE SCREEN
+           ============================================================ */
+        .milestone-screen {
+            padding: 12px 4px;
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            flex: 1;
+        }
+        .milestone-icon-wrap {
+            width: 72px; height: 72px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        .milestone-icon-wrap.win { background: rgba(0, 144, 64, 0.10); color: var(--success); }
+        .milestone-icon-wrap.mid { background: var(--blue-tint); color: var(--blue); }
+        .milestone-icon-wrap.low { background: rgba(240, 120, 0, 0.10); color: var(--gold); }
+        .milestone-icon-wrap svg { width: 38px; height: 38px; }
+
+        .milestone-title {
+            font-size: 11px; font-weight: 800;
+            color: var(--ink2);
+            letter-spacing: 0.16em; text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .milestone-score {
+            font-size: 88px; font-weight: 800;
+            color: var(--ink);
+            margin: 6px 0;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .milestone-score .pct {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink3);
+            margin-left: 2px;
+            vertical-align: top;
+            position: relative; top: 14px;
+        }
+        .milestone-msg {
+            font-weight: 600; color: var(--ink2);
+            margin-bottom: 24px;
+            font-size: 15px;
+            padding: 0 14px; line-height: 1.5;
+            max-width: 380px;
+        }
+
+        .action-btn {
+            background: var(--blue); color: #fff;
+            border: none;
+            padding: 16px 28px;
+            border-radius: 14px;
+            font-weight: 700; cursor: pointer;
+            width: 100%; margin-top: 8px;
+            font-size: 15px;
+            letter-spacing: 0.01em;
+            font-family: inherit;
+            box-shadow: 0 4px 18px rgba(42, 74, 138, 0.22);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .action-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 26px rgba(42, 74, 138, 0.32); }
+        .secondary-btn {
+            background: transparent;
+            color: var(--ink2);
+            border: 1.5px solid var(--border);
+            padding: 14px 28px; border-radius: 14px;
+            font-weight: 700; cursor: pointer;
+            width: 100%; margin-top: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .secondary-btn:hover { color: var(--ink); border-color: var(--ink3); }
+
+        /* ============================================================
+           MODE SELECTION
+           ============================================================ */
+        .mode-title {
+            font-size: 22px; font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+        .mode-sub {
+            font-size: 13px;
+            color: var(--ink2);
+            margin-bottom: 22px;
+            font-weight: 500;
+        }
+        .mode-grid { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+        .mode-btn {
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            padding: 12px 14px;
+            font-family: inherit; font-weight: 700;
+            font-size: 15px; color: var(--ink);
+            cursor: pointer;
+            display: flex; align-items: center; gap: 14px;
+            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+            text-align: left;
+        }
+        .mode-btn:hover { border-color: var(--blue); background: #f8f9fb; }
+        .mode-btn:active { transform: scale(0.99); }
+        .mode-btn .mode-num {
+            width: 40px; height: 40px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 10px;
+            background: var(--blue-tint);
+            color: var(--blue);
+            font-weight: 800;
+            font-size: 14px;
+            font-variant-numeric: tabular-nums;
+            flex-shrink: 0;
+            letter-spacing: -0.01em;
+        }
+        .mode-btn .mode-label {
+            flex: 1;
+            line-height: 1.2;
+        }
+        .mode-btn .mode-label small {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--ink3);
+            margin-top: 2px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .mode-btn .mode-arrow {
+            color: var(--ink3);
+            flex-shrink: 0;
+        }
+
+        .cancel-btn {
+            margin-top: 18px;
+            color: var(--ink3);
+            background: none; border: none;
+            cursor: pointer; font-weight: 700;
+            font-family: inherit;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 10px;
+        }
+        .cancel-btn:hover { color: var(--ink); }
     </style>
 </head>
 <body>
 
 <div id="audioUnlocker">
-    <h1 style="color:white; margin-bottom:10px;">Review test 1</h1>
-    <p>Sẵn sàng cho bài tập về nhà?</p>
-    <button class="unlock-btn" onclick="startApp()">BẮT ĐẦU</button>
+    <svg class="splash-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <rect x="0"  y="0"  width="30" height="30" rx="6" fill="#2a4a8a"/>
+        <rect x="34" y="0"  width="30" height="30" rx="6" fill="#009040"/>
+        <rect x="0"  y="34" width="30" height="30" rx="6" fill="#7c3aed"/>
+        <rect x="34" y="34" width="30" height="30" rx="6" fill="#f07800"/>
+        <text x="32" y="42" text-anchor="middle"
+              font-family="Plus Jakarta Sans, sans-serif"
+              font-weight="800" font-size="28" fill="#fff"
+              style="paint-order: stroke; stroke: rgba(0,0,0,0.15); stroke-width: 1px;">7</text>
+    </svg>
+    <div class="splash-eyebrow">IELTS Thầy <span class="accent">Pháp</span></div>
+    <h1 class="splash-title">Review Test 1</h1>
+    <p class="splash-sub">30 từ vựng · Bài tập về nhà</p>
+    <button class="unlock-btn" onclick="startApp()">Bắt đầu</button>
 </div>
 
 <div class="container" id="mainContent" style="display: none;">
-    <header>
-        <h1>Vocab of Review test 1 Homework</h1>
-        <div class="instruction">Các em click vào từ để biết cách phát âm, và ngữ nghĩa</div>
+    <div class="brand-row">
+        <svg class="compactmark-mini" viewBox="0 0 64 64" aria-hidden="true">
+            <rect x="0"  y="0"  width="30" height="30" rx="5" fill="#2a4a8a"/>
+            <rect x="34" y="0"  width="30" height="30" rx="5" fill="#009040"/>
+            <rect x="0"  y="34" width="30" height="30" rx="5" fill="#7c3aed"/>
+            <rect x="34" y="34" width="30" height="30" rx="5" fill="#f07800"/>
+            <text x="32" y="42" text-anchor="middle"
+                  font-family="Plus Jakarta Sans, sans-serif"
+                  font-weight="800" font-size="26" fill="#fff">7</text>
+        </svg>
+        <div class="brand-wordmark">
+            <span class="b1">IELTS</span>
+            <span class="b2">Thầy <span class="accent">Pháp</span></span>
+        </div>
+    </div>
+
+    <header class="page-head">
+        <h1 class="page-title">Vocab — Review Test 1</h1>
+        <p class="page-sub">Bài tập về nhà · 30 từ và cụm từ</p>
+        <div class="instruction-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M9.5 9.5a2.5 2.5 0 1 1 4 2c-1 .8-1.5 1.5-1.5 2.5"/>
+                <circle cx="12" cy="17.5" r="0.6" fill="currentColor"/>
+            </svg>
+            <span>Bấm vào từng từ để nghe phát âm và xem nghĩa</span>
+        </div>
     </header>
 
     <div class="controls">
-        <select id="voiceSelect"></select>
-        <button class="btn-quiz" onclick="openModeSelection()">Test trí nhớ 1 chút nhé? ➔</button>
+        <div class="voice-wrap">
+            <select id="voiceSelect" aria-label="Chọn giọng đọc"></select>
+        </div>
+        <button class="btn-quiz" onclick="openModeSelection()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+            <span>Test trí nhớ</span>
+        </button>
     </div>
 
     <div class="grid" id="vocabGrid"></div>
@@ -203,7 +654,7 @@
 <script>
     const synth = window.speechSynthesis;
     let allowedVoices = [];
-    
+
     const VOCAB_DATA = {
         "to diversify": { ipa: "/daɪˈvɜː.sɪ.faɪ/", meaning: "đa dạng hóa", def: "to make or become more varied in form, range, or activities", syn: ["branch out"], collo: "diversify the portfolio", sentence: "The company needs to ________ its product range to survive." },
         "to generate income": { ipa: "/ˈdʒen.ə.reɪt ˈɪŋ.kʌm/", meaning: "tạo ra thu nhập", def: "to produce money that is earned from work, business, or investments", syn: ["earn money"], collo: "strategies to generate income", sentence: "Selling assets is one way to ________ in the short term." },
@@ -237,6 +688,18 @@
         "runner-up": { ipa: "/ˌrʌn.ərˈʌp/", meaning: "người/vật về nhì", def: "a person or team that finishes second in a race or competition", syn: ["second-place finisher"], collo: "finish as runner-up", sentence: "He was the ________ in the national chess championship." }
     };
 
+    // ────────────────────────────────────────────────────────────
+    // Reusable SVG strings
+    // ────────────────────────────────────────────────────────────
+    const SPEAKER_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
+    const ARROW_RIGHT_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+    // Milestone icons (no emoji — per main site brand rule)
+    const ICON_TROPHY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 7H4v2a3 3 0 0 0 3 3M17 7h3v2a3 3 0 0 1-3 3"/></svg>';
+    const ICON_SPARK   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.4L21 11l-6.6 2.6L12 20l-2.4-6.4L3 11l6.6-2.6L12 2z"/></svg>';
+    const ICON_TARGET  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>';
+    const ICON_REFRESH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg>';
+
     let audioCtx = null;
     let quizQueue = [];
     let currentQuestion = null;
@@ -251,7 +714,7 @@
         const gainNode = audioCtx.createGain();
         oscillator.connect(gainNode); gainNode.connect(audioCtx.destination);
         if (type === 'correct') {
-            oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); 
+            oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
             oscillator.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.1);
             gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); oscillator.start(); oscillator.stop(audioCtx.currentTime + 0.3);
         } else {
@@ -262,9 +725,9 @@
 
     function populateVoices() {
         const allVoices = synth.getVoices();
-        allowedVoices = allVoices.filter(v => 
-            (v.lang.includes('en-US') || v.lang.includes('en-GB')) && 
-            !v.name.includes('David') && 
+        allowedVoices = allVoices.filter(v =>
+            (v.lang.includes('en-US') || v.lang.includes('en-GB')) &&
+            !v.name.includes('David') &&
             !v.name.includes('Zira')
         );
         const select = document.getElementById('voiceSelect');
@@ -288,23 +751,42 @@
     function speak(text) {
         synth.cancel();
         const ut = new SpeechSynthesisUtterance(text);
-        if(allowedVoices.length > 0) {
+        if (allowedVoices.length > 0) {
             ut.voice = allowedVoices[document.getElementById('voiceSelect').value];
         }
         ut.rate = 0.85;
         synth.speak(ut);
     }
 
+    // ────────────────────────────────────────────────────────────
+    // Build grid
+    // ────────────────────────────────────────────────────────────
     const grid = document.getElementById('vocabGrid');
-    Object.entries(VOCAB_DATA).forEach(([word, info]) => {
+    Object.entries(VOCAB_DATA).forEach(([word, info], idx) => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `${word} <div class="details"><div class="ipa">${info.ipa}</div><div style="font-size:14px; margin:10px 0; color:#c8e6c9;">${info.def}</div><strong style="font-size:18px; color:#fff;">${info.meaning}</strong></div>`;
+        card.style.animationDelay = (idx * 20) + 'ms';
+        card.innerHTML = `
+            <span class="card-word">${word}</span>
+            <div class="details">
+                <div class="drag-handle"></div>
+                <div class="word-head">
+                    <button class="speaker-btn" type="button" aria-label="Phát âm" onclick="event.stopPropagation(); speak(${JSON.stringify(word)})">
+                        ${SPEAKER_SVG}
+                    </button>
+                    <div class="word-block">
+                        <div class="word-text">${word}</div>
+                        <span class="ipa">${info.ipa}</span>
+                    </div>
+                </div>
+                <div class="def">${info.def}</div>
+                <div class="meaning">${info.meaning}</div>
+            </div>`;
         card.onclick = (e) => {
             e.stopPropagation();
             const isActive = card.classList.contains('active');
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-            if(!isActive) {
+            if (!isActive) {
                 card.classList.add('active');
                 speak(word);
             }
@@ -312,27 +794,47 @@
         grid.appendChild(card);
     });
     document.onclick = (e) => {
-        if(!e.target.closest('.card')) document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        if (!e.target.closest('.card')) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        }
     };
 
+    // ────────────────────────────────────────────────────────────
+    // Quiz mode selection
+    // ────────────────────────────────────────────────────────────
     function openModeSelection() {
         document.getElementById('quizOverlay').style.display = 'flex';
         const container = document.getElementById('quizContainer');
         const total = Object.keys(VOCAB_DATA).length;
         container.innerHTML = `
-            <h2 style="margin-bottom:25px; font-size: 24px;">Chọn số lượng câu</h2>
-            <div style="display:flex; flex-direction:column; gap:15px; width:100%;">
-                <button class="opt-btn" onclick="startQuiz(10)">🎯 10 câu</button>
-                <button class="opt-btn" onclick="startQuiz(20)">⚡ 20 câu</button>
-                <button class="opt-btn" onclick="startQuiz(${total})">🔥 Tất cả (${total})</button>
+            <div class="milestone-screen">
+                <div class="mode-title">Test trí nhớ</div>
+                <div class="mode-sub">Chọn số lượng câu để bắt đầu</div>
+                <div class="mode-grid">
+                    <button class="mode-btn" onclick="startQuiz(10)">
+                        <span class="mode-num">10</span>
+                        <span class="mode-label">10 câu<small>Khởi động nhanh</small></span>
+                        <span class="mode-arrow">${ARROW_RIGHT_SVG}</span>
+                    </button>
+                    <button class="mode-btn" onclick="startQuiz(20)">
+                        <span class="mode-num">20</span>
+                        <span class="mode-label">20 câu<small>Luyện chắc tay</small></span>
+                        <span class="mode-arrow">${ARROW_RIGHT_SVG}</span>
+                    </button>
+                    <button class="mode-btn" onclick="startQuiz(${total})">
+                        <span class="mode-num">${total}</span>
+                        <span class="mode-label">Toàn bộ ${total} từ<small>Kiểm tra tổng quát</small></span>
+                        <span class="mode-arrow">${ARROW_RIGHT_SVG}</span>
+                    </button>
+                </div>
+                <button class="cancel-btn" onclick="closeQuiz()">Hủy bỏ</button>
             </div>
-            <button onclick="closeQuiz()" style="margin-top:25px; color:#888; background:none; border:none; cursor:pointer; font-weight:700;">HỦY BỎ</button>
         `;
     }
 
     function startQuiz(limit) {
         sessionStats.currentLimit = limit;
-        sessionStats.milestoneSize = limit; 
+        sessionStats.milestoneSize = limit;
         const allWords = Object.keys(VOCAB_DATA).sort(() => Math.random() - 0.5);
         quizQueue = allWords.slice(0, limit);
         wrongAnswerBuffer = [];
@@ -346,11 +848,11 @@
         document.getElementById('quizContainer').innerHTML = `
             <div class="timer-bar" id="timerBar"></div>
             <div class="quiz-header"><span id="quizProgress"></span><span id="quizTimer">15s</span></div>
-            <div id="questionType" style="font-size:12px; font-weight:800; color:var(--primary); margin-bottom:10px; text-transform:uppercase; letter-spacing: 1px;"></div>
+            <div id="questionType"></div>
             <div class="question-text" id="question"></div>
             <div class="hint-text" id="hint"></div>
             <div id="optionsGrid"></div>
-            <button onclick="closeQuiz()" style="margin-top:25px; opacity:0.6; font-size:14px; border:none; background:none; cursor:pointer; font-weight:700;">DỪNG CHƠI</button>
+            <button class="btn-stop" onclick="closeQuiz()">Dừng chơi</button>
         `;
     }
 
@@ -368,22 +870,22 @@
         const type = types[Math.floor(Math.random() * types.length)];
         let qText, dType;
 
-        switch(type) {
-            case 'meaning': 
-                dType = "Nghĩa của từ"; 
-                qText = `Đâu là nghĩa tiếng Việt của cụm từ dưới đây? <br><span style="color:var(--primary); display:block; margin-top:10px;">"${word}"</span>`; 
+        switch (type) {
+            case 'meaning':
+                dType = "Nghĩa của từ";
+                qText = `Đâu là nghĩa tiếng Việt của cụm từ dưới đây?<br><span style="display:block; margin-top:12px; color:var(--blue); font-size:1.2em;">"${word}"</span>`;
                 break;
-            case 'def': 
-                dType = "Định nghĩa tiếng Anh"; 
-                qText = `"${data.def}" <br><br><small style="font-size:14px; color:#666; font-weight:normal;">Đây là định nghĩa của từ nào?</small>`; 
+            case 'def':
+                dType = "Định nghĩa tiếng Anh";
+                qText = `"${data.def}"<br><br><small style="font-size:13px; color:var(--ink3); font-weight:600;">Đây là định nghĩa của từ nào?</small>`;
                 break;
-            case 'collo': 
-                dType = "Cụm từ cố định"; 
-                qText = `Điền từ còn thiếu vào cụm: <br><i style="color:#000;">"${maskWord(data.collo, word)}"</i>`; 
+            case 'collo':
+                dType = "Cụm từ cố định";
+                qText = `Điền từ còn thiếu vào cụm:<br><span style="display:block; margin-top:10px; font-style:italic; color:var(--ink);">"${maskWord(data.collo, word)}"</span>`;
                 break;
-            case 'sentence': 
-                dType = "Ngữ cảnh thực tế"; 
-                qText = `Hoàn thành câu sau: <br><i style="color:#000;">"${maskWord(data.sentence, word)}"</i>`; 
+            case 'sentence':
+                dType = "Ngữ cảnh thực tế";
+                qText = `Hoàn thành câu sau:<br><span style="display:block; margin-top:10px; font-style:italic; color:var(--ink);">"${maskWord(data.sentence, word)}"</span>`;
                 break;
         }
         return { word, questionText: qText, hintText: `Gợi ý: ${data.meaning}`, correctAnswer: word, type: dType, originalType: type };
@@ -392,22 +894,22 @@
     function nextQuestion() {
         if (sessionStats.questionsInMilestone >= sessionStats.milestoneSize && quizQueue.length > 0) return showMilestone();
         clearInterval(timerInterval);
-        
+
         if (quizQueue.length === 0 && wrongAnswerBuffer.length > 0) quizQueue.push(wrongAnswerBuffer.shift().word);
         if (quizQueue.length === 0) return showMilestone(true);
 
         const word = quizQueue.shift();
         currentQuestion = generateQuestionData(word);
-        document.getElementById('quizProgress').innerText = `CÂU ${sessionStats.questionsInMilestone + 1}/${sessionStats.milestoneSize}`;
+        document.getElementById('quizProgress').innerText = `Câu ${sessionStats.questionsInMilestone + 1} / ${sessionStats.milestoneSize}`;
         document.getElementById('questionType').innerText = currentQuestion.type;
         document.getElementById('question').innerHTML = currentQuestion.questionText;
         document.getElementById('hint').innerText = currentQuestion.hintText;
 
         const optionsGrid = document.getElementById('optionsGrid');
         optionsGrid.innerHTML = '';
-        
+
         let options = [];
-        if(currentQuestion.originalType === 'meaning') {
+        if (currentQuestion.originalType === 'meaning') {
             options = [VOCAB_DATA[word].meaning];
             let distractors = Object.values(VOCAB_DATA)
                 .filter(v => v.meaning !== VOCAB_DATA[word].meaning)
@@ -423,7 +925,7 @@
                 .slice(0, 2);
             options.push(...distractors);
         }
-        
+
         options.sort(() => Math.random() - 0.5);
 
         options.forEach(opt => {
@@ -432,16 +934,16 @@
             btn.onclick = () => {
                 clearInterval(timerInterval);
                 document.querySelectorAll('.opt-btn').forEach(b => b.style.pointerEvents = 'none');
-                
+
                 const isCorrect = (currentQuestion.originalType === 'meaning') ? (opt === VOCAB_DATA[word].meaning) : (opt === word);
 
                 if (isCorrect) {
                     btn.classList.add('correct'); sessionStats.totalCorrect++; sessionStats.correctInMilestone++; playSound('correct');
                 } else {
                     btn.classList.add('wrong'); playSound('wrong');
-                    document.querySelectorAll('.opt-btn').forEach(b => { 
-                        if((currentQuestion.originalType === 'meaning' && b.innerText === VOCAB_DATA[word].meaning) || b.innerText === word) 
-                            b.classList.add('correct'); 
+                    document.querySelectorAll('.opt-btn').forEach(b => {
+                        if ((currentQuestion.originalType === 'meaning' && b.innerText === VOCAB_DATA[word].meaning) || b.innerText === word)
+                            b.classList.add('correct');
                     });
                     wrongAnswerBuffer.push({ word: word });
                 }
@@ -455,10 +957,14 @@
 
     function startTimer() {
         timeLeft = 15;
+        const bar = document.getElementById('timerBar');
+        if (bar) bar.style.width = '100%';
         timerInterval = setInterval(() => {
             timeLeft--;
-            document.getElementById('quizTimer').innerText = timeLeft + "s";
-            document.getElementById('timerBar').style.width = (timeLeft / 15 * 100) + "%";
+            const timerEl = document.getElementById('quizTimer');
+            const barEl = document.getElementById('timerBar');
+            if (timerEl) timerEl.innerText = timeLeft + "s";
+            if (barEl) barEl.style.width = (timeLeft / 15 * 100) + "%";
             if (timeLeft <= 0) { clearInterval(timerInterval); nextQuestion(); }
         }, 1000);
     }
@@ -467,28 +973,38 @@
         const total = isFinal ? sessionStats.questionsInMilestone : sessionStats.milestoneSize;
         const correct = sessionStats.correctInMilestone;
         const percent = Math.round((correct / total) * 100);
-        
-        let message = "";
-        let emoji = "";
-        if (percent === 100) { message = "100% - Bạn có dùng tool hack không vậy?? Thật kinh ngạc!"; emoji = "🤯"; }
-        else if (percent >= 90) { message = "Gần như là hoàn hảo rồi! Tuyệt vời."; emoji = "🔥"; }
-        else if (percent >= 80) { message = "Khá đấy, sắp hoàn hảo rồi! Cố gắng thêm chút nữa."; emoji = "😎"; }
-        else if (percent >= 50) { message = "Chúc mừng! Bạn đã vượt qua mốc trung bình."; emoji = "👍"; }
-        else { message = "Bạn có muốn ôn tập lại không? Đừng bỏ cuộc nhé!"; emoji = "🤔"; }
+
+        let message = "", iconHTML = "", iconClass = "mid";
+        if (percent === 100) {
+            message = "Hoàn hảo! Bạn nắm chắc cả 30 từ rồi đó.";
+            iconHTML = ICON_TROPHY; iconClass = "win";
+        } else if (percent >= 90) {
+            message = "Gần như hoàn hảo. Một chút nữa thôi.";
+            iconHTML = ICON_SPARK; iconClass = "win";
+        } else if (percent >= 80) {
+            message = "Khá tốt — bạn đang đi đúng hướng.";
+            iconHTML = ICON_SPARK; iconClass = "mid";
+        } else if (percent >= 50) {
+            message = "Vượt qua mốc trung bình. Tiếp tục luyện thêm nhé.";
+            iconHTML = ICON_TARGET; iconClass = "mid";
+        } else {
+            message = "Cần ôn lại một chút. Đừng bỏ cuộc — học lại từ sai là cách nhanh nhất.";
+            iconHTML = ICON_REFRESH; iconClass = "low";
+        }
 
         const container = document.getElementById('quizContainer');
         container.innerHTML = `
             <div class="milestone-screen">
-                <div style="font-size: 60px;">${emoji}</div>
-                <h2 style="font-size:28px;">${isFinal ? 'KẾT QUẢ' : 'CHECKPOINT'}</h2>
-                <div class="milestone-score">${percent}%</div>
+                <div class="milestone-icon-wrap ${iconClass}">${iconHTML}</div>
+                <div class="milestone-title">${isFinal ? 'Kết quả' : 'Checkpoint'}</div>
+                <div class="milestone-score">${percent}<span class="pct">%</span></div>
                 <p class="milestone-msg">${message}</p>
-                
-                ${percent < 50 ? 
-                    `<button class="action-btn" onclick="retryFailed()">Học lại từ sai</button>` : 
-                    (quizQueue.length > 0 ? `<button class="action-btn" onclick="resume()">Tiếp tục ➔</button>` : '')
+
+                ${percent < 50 ?
+                    `<button class="action-btn" onclick="retryFailed()">Học lại từ sai</button>` :
+                    (quizQueue.length > 0 ? `<button class="action-btn" onclick="resume()">Tiếp tục</button>` : '')
                 }
-                
+
                 <button class="secondary-btn" onclick="closeQuiz()">${isFinal || (percent < 50 && wrongAnswerBuffer.length == 0) ? 'Về trang chính' : 'Dừng lại'}</button>
             </div>
         `;
