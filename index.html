@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#a8ccb6">
-    <title>Vocab — Review Test 1 · IELTS Thầy Pháp</title>
+    <title>Vocab Garden — Review Test 1 · IELTS Thầy Pháp</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ============================================================
-           VOCAB THEME — copied verbatim from VocabApp.jsx getTheme(false)
+           THEME — ported verbatim from VocabApp.jsx getTheme(false) L416-424
            ============================================================ */
         :root {
             --bg: #a8ccb6;
@@ -26,11 +26,15 @@
             --surface-elevated: #eef3f0;
             --border: rgba(0, 80, 40, 0.10);
             --border-strong: rgba(0, 144, 64, 0.25);
-            --success: #10b981;
-            --danger: #dc2626;
+            --tab-track: rgba(255, 255, 255, 0.45);
+            --tab-face: #ffffff;
             --shadow: rgba(0, 60, 30, 0.08);
             --card-shadow: 0 4px 20px rgba(0, 60, 30, 0.10);
             --card-shadow-hover: 0 8px 28px rgba(0, 60, 30, 0.16);
+            --success: #16a34a;
+            --success-soft: #dcfce7;
+            --danger: #dc2626;
+            --danger-soft: #fee2e2;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -46,7 +50,7 @@
         }
 
         /* ============================================================
-           SPLASH — audio unlocker
+           SPLASH
            ============================================================ */
         #audioUnlocker {
             position: fixed; inset: 0;
@@ -59,8 +63,7 @@
             font-size: 11px; font-weight: 700;
             color: var(--primary-dark);
             letter-spacing: 0.14em; text-transform: uppercase;
-            margin-bottom: 10px;
-            opacity: 0.85;
+            margin-bottom: 10px; opacity: 0.85;
         }
         .splash-eyebrow .accent { color: #c2590a; }
         .splash-title {
@@ -82,23 +85,18 @@
             box-shadow: 0 4px 16px rgba(0, 144, 64, 0.32);
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
-        .unlock-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(0, 144, 64, 0.42);
-        }
+        .unlock-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0, 144, 64, 0.42); }
 
         /* ============================================================
-           OUTER (va-outer pattern from VocabApp)
+           OUTER (va-outer)
            ============================================================ */
-        .va-outer {
-            padding: 12px 12px 80px;
-        }
+        .va-outer { padding: 12px 12px 80px; }
         @media (min-width: 600px) {
             .va-outer { max-width: 1400px; margin: 0 auto; padding: 16px 16px 80px; }
         }
 
         /* ============================================================
-           HEADER — verbatim pattern from VocabApp.jsx:1297
+           HEADER — verbatim from VocabApp.jsx:1297
            ============================================================ */
         .va-header {
             display: flex; align-items: center; gap: 12px;
@@ -117,7 +115,6 @@
         }
         .header-icon-btn:hover { background: rgba(255, 255, 255, 0.3); }
         .header-icon-btn svg { width: 16px; height: 16px; }
-
         .va-title {
             font-size: clamp(20px, 4vw, 28px);
             font-weight: 700;
@@ -130,7 +127,6 @@
             border-radius: 10px;
         }
         .va-title svg { width: 22px; height: 22px; flex-shrink: 0; }
-
         .va-back-btn {
             margin-left: auto;
             display: flex; align-items: center; gap: 6px;
@@ -142,13 +138,14 @@
             cursor: pointer; font-family: inherit;
             flex-shrink: 0;
             transition: background 0.15s;
+            text-decoration: none;
         }
         .va-back-btn:hover { background: rgba(255, 255, 255, 0.3); }
         .va-back-text { display: none; }
         @media (min-width: 600px) { .va-back-text { display: inline; } }
 
         /* ============================================================
-           REC BAR — copied from VocabApp.jsx:1341
+           REC BAR — verbatim from VocabApp.jsx:1360
            ============================================================ */
         .va-rec-bar {
             display: flex; align-items: center; justify-content: space-between;
@@ -157,8 +154,7 @@
             background: var(--surface);
             border: 2px solid var(--primary);
             box-shadow: 0 4px 20px rgba(0, 144, 64, 0.12), 0 0 0 1px rgba(0, 144, 64, 0.06);
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 12px; margin-bottom: 16px;
             animation: rec-pulse 3s ease-in-out infinite;
         }
         @keyframes rec-pulse {
@@ -174,14 +170,11 @@
             display: flex; align-items: center; gap: 4px;
         }
         .va-rec-bar .rec-eyebrow svg { width: 12px; height: 12px; }
-        .va-rec-bar .rec-title {
-            font-size: 14px; font-weight: 700; color: var(--text);
-        }
+        .va-rec-bar .rec-title { font-size: 14px; font-weight: 700; color: var(--text); }
         .va-rec-bar .rec-cta {
             padding: 10px 20px;
             background: var(--primary);
-            color: white;
-            border: none;
+            color: white; border: none;
             border-radius: 10px;
             font-size: 13px; font-weight: 700;
             cursor: pointer; white-space: nowrap;
@@ -190,51 +183,92 @@
             display: inline-flex; align-items: center; gap: 6px;
             transition: transform 0.15s, box-shadow 0.15s;
         }
-        .va-rec-bar .rec-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 144, 64, 0.35);
-        }
+        .va-rec-bar .rec-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 144, 64, 0.35); }
         .va-rec-bar .rec-cta svg { width: 14px; height: 14px; }
 
         /* ============================================================
-           VOICE SELECT — secondary control row
+           CONTEXT SEGMENT — verbatim from VocabApp.jsx:1442
            ============================================================ */
-        .voice-row {
-            display: flex; align-items: center; gap: 8px;
-            margin-bottom: 16px;
+        .va-context-seg {
+            display: flex; gap: 3px;
+            background: var(--tab-track);
+            padding: 3px; border-radius: 11px;
+            margin-bottom: 8px;
         }
-        .voice-row .voice-label {
-            font-size: 12px; font-weight: 700;
+        .va-context-btn {
+            flex: 1; padding: 8px 4px;
+            border-radius: 8px; border: none;
+            background: transparent;
             color: var(--text-sub);
-            letter-spacing: 0.04em;
-            flex-shrink: 0;
+            font-weight: 700; font-size: 12px;
+            cursor: pointer; font-family: inherit;
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 4px;
         }
-        .voice-wrap { flex: 1; position: relative; }
-        .voice-wrap::after {
-            content: '';
-            position: absolute; right: 12px; top: 50%;
-            transform: translateY(-70%) rotate(45deg);
-            width: 6px; height: 6px;
-            border-right: 2px solid var(--text-sub);
-            border-bottom: 2px solid var(--text-sub);
-            pointer-events: none;
+        .va-context-btn.active {
+            background: var(--tab-face);
+            color: var(--text);
+            box-shadow: 0 1px 4px var(--shadow);
         }
-        select#voiceSelect {
-            width: 100%;
-            padding: 8px 30px 8px 12px;
-            border-radius: 10px;
-            border: 1.5px solid var(--border);
-            outline: none;
-            font-size: 13px; font-family: inherit; font-weight: 600;
-            color: var(--text); background: var(--surface);
-            appearance: none; -webkit-appearance: none;
-            cursor: pointer;
-            box-shadow: var(--card-shadow);
+        .va-context-btn.locked {
+            cursor: not-allowed;
+            background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 48%, rgba(255,255,255,.45) 52%, transparent 70%);
+            color: rgba(0, 0, 0, 0.55);
+            border-radius: 9px 9px 8px 8px;
+            border-bottom: 1.5px dotted rgba(0, 0, 0, 0.18);
         }
-        select#voiceSelect:focus { border-color: var(--primary); }
+        .va-context-btn.locked svg { width: 10px; height: 10px; }
 
         /* ============================================================
-           WORD GRID — copied from VocabApp.jsx:1834 / .va-word-grid
+           SKILL TAB BAR — verbatim from VocabApp.jsx:1492
+           ============================================================ */
+        .va-skill-wrap { position: relative; margin-bottom: 20px; }
+        .va-tab-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            background: var(--tab-track);
+            padding: 3px;
+            border-radius: 11px;
+            position: relative;
+        }
+        @media (min-width: 600px) {
+            .va-tab-bar { grid-template-columns: repeat(6, 1fr); }
+        }
+        .va-tab-indicator {
+            position: absolute;
+            top: 3px; height: 31px;
+            border-radius: 8px;
+            background: var(--tab-face);
+            box-shadow: 0 1px 4px var(--shadow);
+            transition: left .25s cubic-bezier(.4,0,.2,1), width .25s cubic-bezier(.4,0,.2,1);
+            z-index: 0; pointer-events: none;
+        }
+        .va-tab-btn {
+            height: 31px; border: none; background: transparent;
+            color: var(--text-muted);
+            font-size: 11px; font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; gap: 5px;
+            position: relative; z-index: 1;
+            white-space: nowrap; font-family: inherit;
+            transition: color .15s;
+        }
+        .va-tab-btn.active { color: var(--text); }
+        .va-tab-btn .tab-icon-sq {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 20px; height: 20px;
+            border-radius: 5px;
+            flex-shrink: 0;
+            opacity: 0.55;
+            transition: opacity 0.15s;
+        }
+        .va-tab-btn.active .tab-icon-sq { opacity: 1; }
+        .va-tab-btn .tab-icon-sq svg { width: 12px; height: 12px; }
+
+        /* ============================================================
+           WORD GRID — verbatim from VocabApp.jsx:1834
            ============================================================ */
         .va-word-grid {
             display: grid;
@@ -243,19 +277,10 @@
             animation: fadeIn 0.4s ease-out;
         }
         @media (min-width: 600px) {
-            .va-word-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 14px;
-            }
+            .va-word-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(8px) scale(0.99); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes cardAppear { from { opacity: 0; transform: translateY(8px) scale(0.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
         .va-word-card {
             background: var(--surface);
@@ -277,16 +302,24 @@
             box-shadow: var(--card-shadow-hover);
             border-color: var(--border-strong);
         }
-        .va-word-card .card-word {
-            font-size: 15px; font-weight: 700;
-            color: var(--text); line-height: 1.3;
+        .va-word-card .card-word { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; }
+
+        /* Placeholder panel for non-Reading tabs */
+        .va-placeholder {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 0.4s ease-out;
         }
-        @media (min-width: 600px) {
-            .va-word-card .card-word { font-size: 15px; }
-        }
+        .va-placeholder svg { width: 36px; height: 36px; color: var(--text-muted); margin-bottom: 8px; }
+        .va-placeholder .ph-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .va-placeholder .ph-sub { font-size: 12px; color: var(--text-sub); line-height: 1.6; max-width: 320px; margin: 0 auto; }
 
         /* ============================================================
-           WORD MODAL — bottom sheet, copied from VocabApp.jsx:2060
+           WORD MODAL — verbatim from VocabApp.jsx:2060
            ============================================================ */
         #modalBackdrop {
             position: fixed; inset: 0;
@@ -305,25 +338,19 @@
             box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.15);
             transform: translateY(100%);
             transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 100;
-            max-height: 90vh;
+            z-index: 100; max-height: 90vh;
             display: flex; flex-direction: column;
         }
         .va-word-modal.active { transform: translateY(0); }
 
-        .modal-top {
-            padding: 12px 16px 8px;
-            flex-shrink: 0;
-        }
+        .modal-top { padding: 12px 16px 8px; flex-shrink: 0; }
         .drag-handle {
             width: 40px; height: 4px;
             background: var(--border);
             border-radius: 2px;
             margin: 0 auto 8px;
         }
-        .modal-top-row {
-            display: flex; align-items: center; justify-content: flex-end;
-        }
+        .modal-top-row { display: flex; align-items: center; justify-content: flex-end; }
         .modal-close {
             width: 36px; height: 36px;
             border-radius: 50%;
@@ -388,16 +415,13 @@
             letter-spacing: 0.3px;
             text-align: right;
         }
-        .va-word-right {
-            flex: 1; padding-left: 4px;
-        }
+        .va-word-right { flex: 1; padding-left: 4px; }
         .word-meaning {
             font-size: 20px; font-weight: 700;
             color: var(--text);
             margin: 0 0 6px;
             line-height: 1.25;
         }
-
         .word-paraphrase {
             font-size: 15px; line-height: 1.65;
             margin: 8px 0;
@@ -408,11 +432,8 @@
             color: var(--text);
             opacity: 0.92;
         }
-        .word-paraphrase strong { color: var(--primary-dark); }
-
         .word-collo {
-            font-size: 14px;
-            margin: 8px 0;
+            font-size: 14px; margin: 8px 0;
             padding: 11px 16px;
             background: rgba(0, 144, 64, 0.06);
             border-radius: 10px;
@@ -423,7 +444,7 @@
         .word-collo strong { color: var(--primary-dark); font-weight: 700; }
 
         /* ============================================================
-           QUIZ OVERLAY
+           QUIZ OVERLAY — YouGlish dictation pattern
            ============================================================ */
         #quizOverlay {
             position: fixed; inset: 0;
@@ -433,124 +454,130 @@
             display: none;
             align-items: center; justify-content: center;
             z-index: 1000; padding: 12px;
+            overflow-y: auto;
         }
         .quiz-container {
             background: var(--surface);
             width: 100%; max-width: 540px;
-            padding: 28px 22px 18px;
+            padding: 22px 20px 18px;
             border-radius: 20px;
-            position: relative; overflow: hidden;
-            min-height: 520px;
+            position: relative;
             display: flex; flex-direction: column;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .timer-bar {
-            position: absolute; top: 0; left: 0;
-            height: 4px;
-            background: var(--primary);
-            width: 100%;
-            transition: width 1s linear;
+            margin: auto;
         }
 
         .quiz-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             font-size: 11px; color: var(--text-muted); font-weight: 700;
             letter-spacing: 0.1em; text-transform: uppercase;
             font-variant-numeric: tabular-nums;
         }
 
-        #questionType {
-            font-size: 10px; font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
+        /* YouGlish player wrapper — verbatim from YGDictationQuestion.jsx:105 */
+        .yg-player-wrap {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #000;
         }
-
-        .question-text {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text);
-            min-height: 96px;
+        .yg-player-wrap > div { width: 100%; }
+        .yg-mask {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 45px;
+            background: #000;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .yg-loading {
+            position: absolute; inset: 0;
             display: flex; align-items: center; justify-content: center;
-            padding: 0 6px;
-            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px; font-weight: 600;
+            letter-spacing: 0.05em;
+            z-index: 5;
+        }
+        .yg-replay-btn {
+            margin-top: 10px; width: 100%;
+            padding: 12px;
+            background: #1d4ed8;
+            color: #fff; border: none;
+            border-radius: 8px;
+            font-size: 14px; font-weight: 700;
+            cursor: pointer; font-family: inherit;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: background 0.15s;
+        }
+        .yg-replay-btn:hover { background: #1e40af; }
+        .yg-replay-btn svg { width: 18px; height: 18px; }
+        .yg-hint {
+            margin-top: 14px;
+            font-size: 13px;
+            color: #64748b;
             text-align: center;
         }
-
-        .hint-text {
-            background: rgba(245, 158, 11, 0.10);
-            border-left: 3px solid var(--accent);
-            padding: 10px 14px;
+        .yg-choices {
+            display: flex; flex-direction: column;
+            gap: 10px;
+            margin: 20px 0 0;
+        }
+        .yg-choice {
+            border: 2px solid #e2e8f0;
+            background: #fff;
+            padding: 14px 18px;
             border-radius: 10px;
-            font-size: 13px;
-            margin-bottom: 18px;
-            color: var(--text-sub); font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .opt-btn {
-            display: block; width: 100%;
-            padding: 14px 16px; margin: 8px 0;
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            background: var(--surface);
-            cursor: pointer; font-family: inherit; font-weight: 600;
-            transition: border-color 0.15s, background 0.15s, transform 0.1s;
-            font-size: 15px;
-            color: var(--text);
+            cursor: pointer; font-family: inherit;
+            font-size: 16px; font-weight: 600;
+            color: #0f172a;
             text-align: left;
-            line-height: 1.4;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.15s;
         }
-        .opt-btn:hover { border-color: var(--primary); background: var(--surface-elevated); }
-        .opt-btn:active { transform: scale(0.98); }
-        .opt-btn.correct {
-            background: var(--primary) !important;
-            color: #fff !important;
-            border-color: var(--primary);
-            box-shadow: 0 4px 14px rgba(0, 144, 64, 0.30);
+        .yg-choice:hover:not(:disabled) { border-color: var(--primary); }
+        .yg-choice:disabled { cursor: default; }
+        .yg-choice.locked { opacity: 0.5; color: #94a3b8; cursor: default; }
+        .yg-choice.correct {
+            border-color: var(--success);
+            background: var(--success-soft);
         }
-        .opt-btn.wrong {
-            background: var(--danger) !important;
-            color: #fff !important;
+        .yg-choice.wrong {
             border-color: var(--danger);
-            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.28);
+            background: var(--danger-soft);
         }
+        .yg-choice .suffix { font-size: 14px; }
+        .yg-choice.correct .suffix { color: var(--success); }
+        .yg-choice.wrong .suffix { color: var(--danger); }
 
         .btn-stop {
-            margin-top: auto;
+            margin-top: 18px;
             align-self: center;
             border: none; background: none;
             color: var(--text-muted); font-weight: 700;
             font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-            cursor: pointer; padding: 14px;
+            cursor: pointer; padding: 10px;
             font-family: inherit;
         }
         .btn-stop:hover { color: var(--text); }
 
-        /* ============================================================
-           MILESTONE
-           ============================================================ */
+        /* MILESTONE */
         .milestone-screen {
-            padding: 12px 4px;
+            padding: 32px 4px 12px;
             text-align: center;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            flex: 1;
+            min-height: 480px;
         }
         .milestone-icon-wrap {
             width: 72px; height: 72px;
             display: inline-flex; align-items: center; justify-content: center;
-            border-radius: 20px;
-            margin-bottom: 10px;
+            border-radius: 20px; margin-bottom: 10px;
         }
         .milestone-icon-wrap.win { background: rgba(0, 144, 64, 0.10); color: var(--primary); }
         .milestone-icon-wrap.mid { background: rgba(245, 158, 11, 0.12); color: var(--accent); }
         .milestone-icon-wrap.low { background: rgba(220, 38, 38, 0.10); color: var(--danger); }
         .milestone-icon-wrap svg { width: 38px; height: 38px; }
-
         .milestone-title {
             font-size: 11px; font-weight: 800;
             color: var(--text-muted);
@@ -561,34 +588,28 @@
             font-size: 88px; font-weight: 800;
             color: var(--text);
             margin: 6px 0;
-            letter-spacing: -0.04em;
-            line-height: 1;
+            letter-spacing: -0.04em; line-height: 1;
             font-variant-numeric: tabular-nums;
         }
         .milestone-score .pct {
             font-size: 28px; font-weight: 700;
             color: var(--text-muted);
-            margin-left: 2px;
-            vertical-align: top;
+            margin-left: 2px; vertical-align: top;
             position: relative; top: 14px;
         }
         .milestone-msg {
             font-weight: 600; color: var(--text-sub);
             margin-bottom: 24px;
-            font-size: 15px;
-            padding: 0 14px; line-height: 1.5;
+            font-size: 15px; padding: 0 14px; line-height: 1.5;
             max-width: 380px;
         }
-
         .action-btn {
             background: var(--primary); color: #fff;
             border: none;
-            padding: 14px 28px;
-            border-radius: 12px;
+            padding: 14px 28px; border-radius: 12px;
             font-weight: 700; cursor: pointer;
             width: 100%; margin-top: 8px;
-            font-size: 15px;
-            letter-spacing: 0.01em;
+            font-size: 15px; letter-spacing: 0.01em;
             font-family: inherit;
             box-shadow: 0 4px 16px rgba(0, 144, 64, 0.28);
             transition: transform 0.15s, box-shadow 0.15s;
@@ -601,27 +622,14 @@
             padding: 12px 28px; border-radius: 12px;
             font-weight: 700; cursor: pointer;
             width: 100%; margin-top: 8px;
-            font-size: 14px;
-            font-family: inherit;
+            font-size: 14px; font-family: inherit;
             transition: border-color 0.15s, color 0.15s;
         }
         .secondary-btn:hover { color: var(--text); border-color: var(--primary); }
 
-        /* ============================================================
-           MODE SELECTION
-           ============================================================ */
-        .mode-title {
-            font-size: 22px; font-weight: 800;
-            color: var(--text);
-            letter-spacing: -0.02em;
-            margin-bottom: 4px;
-        }
-        .mode-sub {
-            font-size: 13px;
-            color: var(--text-sub);
-            margin-bottom: 22px;
-            font-weight: 500;
-        }
+        /* MODE */
+        .mode-title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; margin-bottom: 4px; }
+        .mode-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 22px; font-weight: 500; }
         .mode-grid { display: flex; flex-direction: column; gap: 10px; width: 100%; }
         .mode-btn {
             border: 1.5px solid var(--border);
@@ -632,7 +640,7 @@
             font-size: 15px; color: var(--text);
             cursor: pointer;
             display: flex; align-items: center; gap: 14px;
-            transition: border-color 0.15s, background 0.15s, transform 0.1s;
+            transition: all 0.15s;
             text-align: left;
             box-shadow: var(--card-shadow);
         }
@@ -643,25 +651,18 @@
             border-radius: 10px;
             background: rgba(0, 144, 64, 0.10);
             color: var(--primary-dark);
-            font-weight: 800;
-            font-size: 14px;
+            font-weight: 800; font-size: 14px;
             font-variant-numeric: tabular-nums;
             flex-shrink: 0;
-            letter-spacing: -0.01em;
         }
         .mode-btn .mode-label { flex: 1; line-height: 1.2; }
         .mode-btn .mode-label small {
-            display: block;
-            font-size: 10px; font-weight: 700;
+            display: block; font-size: 10px; font-weight: 700;
             color: var(--text-muted);
             margin-top: 2px;
             letter-spacing: 0.1em; text-transform: uppercase;
         }
-        .mode-btn .mode-arrow {
-            color: var(--text-muted);
-            flex-shrink: 0;
-        }
-
+        .mode-btn .mode-arrow { color: var(--text-muted); flex-shrink: 0; }
         .cancel-btn {
             margin-top: 18px;
             color: var(--text-muted);
@@ -669,11 +670,25 @@
             cursor: pointer; font-weight: 700;
             font-family: inherit;
             font-size: 11px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
+            letter-spacing: 0.14em; text-transform: uppercase;
             padding: 10px;
         }
         .cancel-btn:hover { color: var(--text); }
+
+        /* TOAST */
+        #toast {
+            position: fixed; left: 50%; bottom: 30px;
+            transform: translate(-50%, 20px);
+            background: var(--primary-dark); color: #fff;
+            padding: 12px 18px; border-radius: 12px;
+            font-size: 13px; font-weight: 600;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.25s, transform 0.25s;
+            z-index: 9000;
+            max-width: calc(100vw - 40px);
+        }
+        #toast.active { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
     </style>
 </head>
 <body>
@@ -684,9 +699,7 @@
         <rect x="34" y="0"  width="30" height="30" rx="6" fill="#009040"/>
         <rect x="0"  y="34" width="30" height="30" rx="6" fill="#7c3aed"/>
         <rect x="34" y="34" width="30" height="30" rx="6" fill="#f07800"/>
-        <text x="32" y="42" text-anchor="middle"
-              font-family="Plus Jakarta Sans, sans-serif"
-              font-weight="800" font-size="28" fill="#fff">7</text>
+        <text x="32" y="42" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="28" fill="#fff">7</text>
     </svg>
     <div class="splash-eyebrow">IELTS Thầy <span class="accent">Pháp</span></div>
     <h1 class="splash-title">Vocab Garden</h1>
@@ -696,9 +709,9 @@
 
 <div class="va-outer" id="mainContent" style="display: none;">
 
-    <!-- HEADER — copied verbatim from VocabApp.jsx:1297 -->
+    <!-- HEADER -->
     <header class="va-header">
-        <button class="header-icon-btn" aria-label="Sáng/Tối" title="Standalone — chế độ sáng cố định">
+        <button class="header-icon-btn" aria-label="Chế độ sáng (cố định)" title="Standalone — light mode">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="4"/>
                 <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5.6 5.6L4.2 4.2M19.8 19.8l-1.4-1.4M5.6 18.4L4.2 19.8M19.8 4.2l-1.4 1.4"/>
@@ -708,39 +721,51 @@
             <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg>
             Vocab Garden
         </div>
-        <a href="https://thayphapielts.vercel.app" class="va-back-btn" style="text-decoration: none;">
+        <a href="https://thayphapielts.vercel.app" class="va-back-btn">
             ← <span class="va-back-text">Trang chính</span>
         </a>
     </header>
 
-    <!-- REC BAR — copied from VocabApp.jsx:1359 with quiz CTA -->
+    <!-- REC BAR -->
     <div class="va-rec-bar">
         <div>
             <div class="rec-eyebrow">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Review Test 1 — Bài tập về nhà
+                Gợi ý tiếp theo
             </div>
-            <div class="rec-title">Test trí nhớ với 30 từ vựng</div>
+            <div class="rec-title">Review Test 1 — Reading homework</div>
         </div>
-        <button class="rec-cta" onclick="openModeSelection()">
-            <span>Bắt đầu</span>
+        <button class="rec-cta" onclick="switchTab('quiz')">
+            <span>Học ngay</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
     </div>
 
-    <!-- Voice select row -->
-    <div class="voice-row">
-        <span class="voice-label">GIỌNG ĐỌC</span>
-        <div class="voice-wrap">
-            <select id="voiceSelect" aria-label="Chọn giọng đọc"></select>
+    <!-- CONTEXT SEGMENT -->
+    <div class="va-context-seg">
+        <button class="va-context-btn active">Trong khóa</button>
+        <button class="va-context-btn locked" onclick="toast('Sau khóa chỉ mở khi tốt nghiệp khóa trên site chính')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Sau khóa
+        </button>
+        <button class="va-context-btn" onclick="toast('Luyện thi: vào site chính để xem')">Luyện thi</button>
+    </div>
+
+    <!-- SKILL TAB BAR -->
+    <div class="va-skill-wrap">
+        <div class="va-tab-bar" id="tabBar">
+            <div class="va-tab-indicator" id="tabIndicator"></div>
+            <!-- 6 tabs rendered by JS -->
         </div>
     </div>
 
-    <!-- WORD GRID — copied from VocabApp.jsx:1834 -->
-    <div class="va-word-grid" id="vocabGrid"></div>
+    <!-- CONTENT (switches by tab) -->
+    <div id="contentArea">
+        <div class="va-word-grid" id="vocabGrid"></div>
+    </div>
 </div>
 
-<!-- Modal infrastructure — copied from WordModal pattern -->
+<!-- Word modal -->
 <div id="modalBackdrop" onclick="closeModal()"></div>
 <div class="va-word-modal" id="wordModal">
     <div class="modal-top">
@@ -752,9 +777,13 @@
     <div class="modal-body" id="modalBody"></div>
 </div>
 
+<!-- Quiz overlay -->
 <div id="quizOverlay">
     <div class="quiz-container" id="quizContainer"></div>
 </div>
+
+<!-- Toast -->
+<div id="toast"></div>
 
 <script>
     const synth = window.speechSynthesis;
@@ -794,22 +823,55 @@
     };
 
     // ────────────────────────────────────────────────────────────
-    // Reusable SVG strings
+    // TAB_CONFIG — verbatim from VocabApp.jsx:528
     // ────────────────────────────────────────────────────────────
+    const TAB_CONFIG = [
+        { view: 'reading',   label: 'Reading',   color: '#2a4a8a', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>' },
+        { view: 'listening', label: 'Listening', color: '#009040', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>' },
+        { view: 'term_test', label: 'Giữa kỳ',   color: '#7c3aed', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><circle cx="12" cy="12" r="5"/></svg>' },
+        { view: 'review',    label: 'Ôn tập',    color: '#f07800', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>' },
+        { view: 'quiz',      label: 'Quiz',      color: '#dc2626', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9h-4v4h-2v-4H9V9h4V5h2v4h4v2z"/></svg>' },
+        { view: 'progress',  label: 'Tiến trình',color: '#0ea5e9', svg: '<svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z"/></svg>' },
+    ];
+
+    // SVG strings reused
     const SPEAKER_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>';
     const ARROW_RIGHT_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    const REPLAY_SVG = '<svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 1 0 3.5-7.1L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M3 3v5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
     const ICON_TROPHY  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 7H4v2a3 3 0 0 0 3 3M17 7h3v2a3 3 0 0 1-3 3"/></svg>';
     const ICON_SPARK   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.4L21 11l-6.6 2.6L12 20l-2.4-6.4L3 11l6.6-2.6L12 2z"/></svg>';
     const ICON_TARGET  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>';
     const ICON_REFRESH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.3L3 16M3 21v-5h5"/></svg>';
 
+    let currentTab = 'reading';
     let audioCtx = null;
-    let quizQueue = [];
-    let currentQuestion = null;
-    let timerInterval = null;
-    let timeLeft = 15;
-    let wrongAnswerBuffer = [];
-    let sessionStats = { correctInMilestone: 0, questionsInMilestone: 0, totalCorrect: 0, milestoneSize: 10, currentLimit: 10 };
+    let toastTimer = null;
+
+    // ────────────────────────────────────────────────────────────
+    // Voices
+    // ────────────────────────────────────────────────────────────
+    function populateVoices() {
+        const allVoices = synth.getVoices();
+        allowedVoices = allVoices.filter(v =>
+            (v.lang.includes('en-US') || v.lang.includes('en-GB')) &&
+            !v.name.includes('David') &&
+            !v.name.includes('Zira')
+        );
+    }
+    if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoices;
+
+    function speak(text) {
+        synth.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        if (allowedVoices.length > 0) {
+            const ukNatural = allowedVoices.find(v => v.lang.includes('en-GB') && (v.name.includes('Google') || v.name.includes('Natural')))
+                || allowedVoices.find(v => v.lang.includes('en-GB'))
+                || allowedVoices[0];
+            ut.voice = ukNatural;
+        }
+        ut.rate = 0.85;
+        synth.speak(ut);
+    }
 
     function playSound(type) {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -826,57 +888,106 @@
         }
     }
 
-    function populateVoices() {
-        const allVoices = synth.getVoices();
-        allowedVoices = allVoices.filter(v =>
-            (v.lang.includes('en-US') || v.lang.includes('en-GB')) &&
-            !v.name.includes('David') &&
-            !v.name.includes('Zira')
-        );
-        const select = document.getElementById('voiceSelect');
-        if(!select) return;
-        select.innerHTML = '';
-        allowedVoices.forEach((v, i) => {
-            const opt = document.createElement('option'); opt.value = i; opt.textContent = v.name;
-            if (v.name.includes('Google') || v.name.includes('Natural')) opt.selected = true;
-            select.appendChild(opt);
-        });
-    }
-
-    if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoices;
-
     function startApp() {
         document.getElementById('audioUnlocker').style.display = 'none';
         document.getElementById('mainContent').style.display = 'block';
         populateVoices();
+        buildTabBar();
+        buildGrid();
+        // initial indicator position after layout settles
+        requestAnimationFrame(() => moveTabIndicator('reading'));
     }
 
-    function speak(text) {
-        synth.cancel();
-        const ut = new SpeechSynthesisUtterance(text);
-        if (allowedVoices.length > 0) {
-            ut.voice = allowedVoices[document.getElementById('voiceSelect').value];
+    function toast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('active');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('active'), 2400);
+    }
+
+    // ────────────────────────────────────────────────────────────
+    // Tab bar — sliding pill indicator pattern from VocabApp.jsx:1492
+    // ────────────────────────────────────────────────────────────
+    function buildTabBar() {
+        const bar = document.getElementById('tabBar');
+        const indicator = document.getElementById('tabIndicator');
+        bar.innerHTML = '';
+        bar.appendChild(indicator);
+        TAB_CONFIG.forEach(tab => {
+            const btn = document.createElement('button');
+            btn.className = 'va-tab-btn' + (tab.view === currentTab ? ' active' : '');
+            btn.dataset.view = tab.view;
+            btn.innerHTML = `
+                <span class="tab-icon-sq" style="background: ${tab.color}">${tab.svg}</span>
+                ${tab.label}
+            `;
+            btn.onclick = () => switchTab(tab.view);
+            bar.appendChild(btn);
+        });
+    }
+
+    function moveTabIndicator(view) {
+        const bar = document.getElementById('tabBar');
+        const indicator = document.getElementById('tabIndicator');
+        const target = bar.querySelector(`.va-tab-btn[data-view="${view}"]`);
+        if (!target || !indicator) return;
+        const barRect = bar.getBoundingClientRect();
+        const tRect = target.getBoundingClientRect();
+        indicator.style.left = (tRect.left - barRect.left) + 'px';
+        indicator.style.width = tRect.width + 'px';
+    }
+
+    function switchTab(view) {
+        currentTab = view;
+        // Update active class
+        document.querySelectorAll('.va-tab-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.view === view);
+        });
+        moveTabIndicator(view);
+
+        // Switch content
+        const content = document.getElementById('contentArea');
+        if (view === 'reading') {
+            content.innerHTML = '<div class="va-word-grid" id="vocabGrid"></div>';
+            buildGrid();
+        } else if (view === 'quiz') {
+            openModeSelection();
+        } else if (view === 'review') {
+            openModeSelection();
+        } else {
+            const labels = { listening: 'Listening', term_test: 'Giữa kỳ', progress: 'Tiến trình' };
+            content.innerHTML = `
+                <div class="va-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>
+                    </svg>
+                    <div class="ph-title">${labels[view]} có trên site chính</div>
+                    <div class="ph-sub">Bản standalone này chỉ chứa từ vựng Reading của Review Test 1. Đăng nhập site chính để mở khóa toàn bộ.</div>
+                </div>
+            `;
         }
-        ut.rate = 0.85;
-        synth.speak(ut);
     }
 
-    // ────────────────────────────────────────────────────────────
-    // Build word grid — matches VocabApp.jsx:1834 pattern
-    // ────────────────────────────────────────────────────────────
-    const grid = document.getElementById('vocabGrid');
-    Object.entries(VOCAB_DATA).forEach(([word, info], idx) => {
-        const card = document.createElement('div');
-        card.className = 'va-word-card';
-        card.style.animationDelay = (idx * 30) + 'ms';
-        card.innerHTML = `<span class="card-word">${word}</span>`;
-        card.onclick = () => openModal(word);
-        grid.appendChild(card);
-    });
+    window.addEventListener('resize', () => moveTabIndicator(currentTab));
 
     // ────────────────────────────────────────────────────────────
-    // Modal — matches WordModal pattern from VocabApp.jsx:2060
+    // Word grid + modal
     // ────────────────────────────────────────────────────────────
+    function buildGrid() {
+        const grid = document.getElementById('vocabGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        Object.entries(VOCAB_DATA).forEach(([word, info], idx) => {
+            const card = document.createElement('div');
+            card.className = 'va-word-card';
+            card.style.animationDelay = (idx * 30) + 'ms';
+            card.innerHTML = `<span class="card-word">${word}</span>`;
+            card.onclick = () => openModal(word);
+            grid.appendChild(card);
+        });
+    }
+
     function openModal(word) {
         const info = VOCAB_DATA[word];
         if (!info) return;
@@ -912,16 +1023,60 @@
     }
 
     // ────────────────────────────────────────────────────────────
-    // Quiz mode selection
+    // YouGlish loader — verbatim from YGDictationQuestion.jsx:9
     // ────────────────────────────────────────────────────────────
+    const YG_SCRIPT = 'https://youglish.com/public/emb/widget.js';
+    function loadYG() {
+        if (window.YG && window.YG.Widget) return Promise.resolve(window.YG);
+        return new Promise((resolve) => {
+            const prev = window.onYouglishAPIReady;
+            window.onYouglishAPIReady = () => {
+                if (typeof prev === 'function') prev();
+                resolve(window.YG);
+            };
+            if (!document.getElementById('youglish-api')) {
+                const tag = document.createElement('script');
+                tag.id = 'youglish-api';
+                tag.src = YG_SCRIPT;
+                document.head.appendChild(tag);
+            }
+        });
+    }
+
+    // Function-word-aware fallback queries — simplified port from
+    // lib/quiz-shared.js generateFallbackQueriesBoth (in main site).
+    function generateFallbackQueries(phrase) {
+        const cleaned = phrase.replace(/^to\s+/i, '').replace(/^(a|an|the)\s+/i, '').trim();
+        const queries = [cleaned];
+        const words = cleaned.split(/\s+/);
+        // Last content word
+        if (words.length > 1) queries.push(words[words.length - 1]);
+        // Last 2 words
+        if (words.length > 2) queries.push(words.slice(-2).join(' '));
+        // Strip leading function words
+        const FN = /^(of|in|on|at|to|for|with|by|from|the|a|an)$/i;
+        let drop = 0;
+        while (drop < words.length - 1 && FN.test(words[drop])) drop++;
+        if (drop > 0) queries.push(words.slice(drop).join(' '));
+        return [...new Set(queries)];
+    }
+
+    // ────────────────────────────────────────────────────────────
+    // Quiz state
+    // ────────────────────────────────────────────────────────────
+    let quizQueue = [];
+    let currentQuiz = null;  // { target, distractors, meaning, choices, picked, hasPlayed, widget }
+    let wrongAnswerBuffer = [];
+    let sessionStats = { correctInMilestone: 0, questionsInMilestone: 0, totalCorrect: 0, milestoneSize: 10, currentLimit: 10 };
+
     function openModeSelection() {
         document.getElementById('quizOverlay').style.display = 'flex';
         const container = document.getElementById('quizContainer');
         const total = Object.keys(VOCAB_DATA).length;
         container.innerHTML = `
             <div class="milestone-screen">
-                <div class="mode-title">Test trí nhớ</div>
-                <div class="mode-sub">Chọn số lượng câu để bắt đầu</div>
+                <div class="mode-title">YouGlish Dictation</div>
+                <div class="mode-sub">Nghe clip → chọn đúng từ. Chọn số câu để bắt đầu</div>
                 <div class="mode-grid">
                     <button class="mode-btn" onclick="startQuiz(10)">
                         <span class="mode-num">10</span>
@@ -953,156 +1108,176 @@
         sessionStats.correctInMilestone = 0;
         sessionStats.questionsInMilestone = 0;
         sessionStats.totalCorrect = 0;
-        renderQuizBase(); nextQuestion();
+        nextQuestion();
     }
 
-    function renderQuizBase() {
-        document.getElementById('quizContainer').innerHTML = `
-            <div class="timer-bar" id="timerBar"></div>
-            <div class="quiz-header"><span id="quizProgress"></span><span id="quizTimer">15s</span></div>
-            <div id="questionType"></div>
-            <div class="question-text" id="question"></div>
-            <div class="hint-text" id="hint"></div>
-            <div id="optionsGrid"></div>
-            <button class="btn-stop" onclick="closeQuiz()">Dừng chơi</button>
-        `;
-    }
-
-    function closeQuiz() { clearInterval(timerInterval); document.getElementById('quizOverlay').style.display = 'none'; }
-
-    function maskWord(str, target) {
-        const cleanTarget = target.replace(/^to\s+/, '');
-        const regex = new RegExp(cleanTarget, 'gi');
-        return str.replace(regex, '_______');
-    }
-
-    function generateQuestionData(word) {
-        const data = VOCAB_DATA[word];
-        const types = ['meaning', 'def', 'collo', 'sentence'];
-        const type = types[Math.floor(Math.random() * types.length)];
-        let qText, dType;
-
-        switch (type) {
-            case 'meaning':
-                dType = "Nghĩa của từ";
-                qText = `Đâu là nghĩa tiếng Việt của cụm từ dưới đây?<br><span style="display:block; margin-top:12px; color:var(--primary-dark); font-size:1.2em;">"${word}"</span>`;
-                break;
-            case 'def':
-                dType = "Định nghĩa tiếng Anh";
-                qText = `"${data.def}"<br><br><small style="font-size:13px; color:var(--text-muted); font-weight:600;">Đây là định nghĩa của từ nào?</small>`;
-                break;
-            case 'collo':
-                dType = "Cụm từ cố định";
-                qText = `Điền từ còn thiếu vào cụm:<br><span style="display:block; margin-top:10px; font-style:italic; color:var(--text);">"${maskWord(data.collo, word)}"</span>`;
-                break;
-            case 'sentence':
-                dType = "Ngữ cảnh thực tế";
-                qText = `Hoàn thành câu sau:<br><span style="display:block; margin-top:10px; font-style:italic; color:var(--text);">"${maskWord(data.sentence, word)}"</span>`;
-                break;
+    function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
         }
-        return { word, questionText: qText, hintText: `Gợi ý: ${data.meaning}`, correctAnswer: word, type: dType, originalType: type };
+        return a;
+    }
+
+    function closeQuiz() {
+        document.getElementById('quizOverlay').style.display = 'none';
+        if (currentQuiz?.widget) {
+            try { currentQuiz.widget.replay = () => {}; } catch {}
+        }
+        currentQuiz = null;
     }
 
     function nextQuestion() {
         if (sessionStats.questionsInMilestone >= sessionStats.milestoneSize && quizQueue.length > 0) return showMilestone();
-        clearInterval(timerInterval);
-
-        if (quizQueue.length === 0 && wrongAnswerBuffer.length > 0) quizQueue.push(wrongAnswerBuffer.shift().word);
+        if (quizQueue.length === 0 && wrongAnswerBuffer.length > 0) quizQueue.push(wrongAnswerBuffer.shift());
         if (quizQueue.length === 0) return showMilestone(true);
 
-        const word = quizQueue.shift();
-        currentQuestion = generateQuestionData(word);
-        document.getElementById('quizProgress').innerText = `Câu ${sessionStats.questionsInMilestone + 1} / ${sessionStats.milestoneSize}`;
-        document.getElementById('questionType').innerText = currentQuestion.type;
-        document.getElementById('question').innerHTML = currentQuestion.questionText;
-        document.getElementById('hint').innerText = currentQuestion.hintText;
+        const target = quizQueue.shift();
+        const targetMeaning = VOCAB_DATA[target].meaning;
+        const distractors = Object.keys(VOCAB_DATA)
+            .filter(w => w !== target)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 2);
+        const choices = shuffle([target, ...distractors]);
 
-        const optionsGrid = document.getElementById('optionsGrid');
-        optionsGrid.innerHTML = '';
-
-        let options = [];
-        if (currentQuestion.originalType === 'meaning') {
-            options = [VOCAB_DATA[word].meaning];
-            let distractors = Object.values(VOCAB_DATA)
-                .filter(v => v.meaning !== VOCAB_DATA[word].meaning)
-                .sort(() => Math.random() - 0.5)
-                .slice(0, 2)
-                .map(v => v.meaning);
-            options.push(...distractors);
-        } else {
-            options = [word];
-            let distractors = Object.keys(VOCAB_DATA)
-                .filter(w => w !== word && !currentQuestion.questionText.toLowerCase().includes(w.toLowerCase()))
-                .sort(() => Math.random() - 0.5)
-                .slice(0, 2);
-            options.push(...distractors);
-        }
-
-        options.sort(() => Math.random() - 0.5);
-
-        options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = 'opt-btn'; btn.innerText = opt;
-            btn.onclick = () => {
-                clearInterval(timerInterval);
-                document.querySelectorAll('.opt-btn').forEach(b => b.style.pointerEvents = 'none');
-
-                const isCorrect = (currentQuestion.originalType === 'meaning') ? (opt === VOCAB_DATA[word].meaning) : (opt === word);
-
-                if (isCorrect) {
-                    btn.classList.add('correct'); sessionStats.totalCorrect++; sessionStats.correctInMilestone++; playSound('correct');
-                } else {
-                    btn.classList.add('wrong'); playSound('wrong');
-                    document.querySelectorAll('.opt-btn').forEach(b => {
-                        if ((currentQuestion.originalType === 'meaning' && b.innerText === VOCAB_DATA[word].meaning) || b.innerText === word)
-                            b.classList.add('correct');
-                    });
-                    wrongAnswerBuffer.push({ word: word });
-                }
-                sessionStats.questionsInMilestone++;
-                setTimeout(nextQuestion, 1400);
-            };
-            optionsGrid.appendChild(btn);
-        });
-        startTimer();
+        currentQuiz = { target, meaning: targetMeaning, distractors, choices, picked: null, hasPlayed: false, widget: null };
+        renderQuizQuestion();
     }
 
-    function startTimer() {
-        timeLeft = 15;
-        const bar = document.getElementById('timerBar');
-        if (bar) bar.style.width = '100%';
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            const timerEl = document.getElementById('quizTimer');
-            const barEl = document.getElementById('timerBar');
-            if (timerEl) timerEl.innerText = timeLeft + "s";
-            if (barEl) barEl.style.width = (timeLeft / 15 * 100) + "%";
-            if (timeLeft <= 0) { clearInterval(timerInterval); nextQuestion(); }
-        }, 1000);
+    function renderQuizQuestion() {
+        const q = currentQuiz;
+        const container = document.getElementById('quizContainer');
+        const playerId = 'yg-quiz-' + Math.random().toString(36).slice(2, 10);
+        container.innerHTML = `
+            <div class="quiz-header">
+                <span>Câu ${sessionStats.questionsInMilestone + 1} / ${sessionStats.milestoneSize}</span>
+                <span>YouGlish Dictation</span>
+            </div>
+            <div class="yg-player-wrap">
+                <div id="${playerId}"></div>
+                <div class="yg-loading" id="ygLoading">Đang tải clip…</div>
+                <div class="yg-mask"></div>
+            </div>
+            <button class="yg-replay-btn" id="ygReplay" disabled style="opacity:0.5;cursor:default;">
+                ${REPLAY_SVG}
+                Nghe lại clip
+            </button>
+            <div class="yg-hint" id="ygHint">Bấm play trên clip để mở khoá câu trả lời</div>
+            <div class="yg-choices" id="ygChoices"></div>
+            <button class="btn-stop" onclick="closeQuiz()">Dừng chơi</button>
+        `;
+
+        // Render locked choice buttons
+        const choicesEl = document.getElementById('ygChoices');
+        q.choices.forEach((choice, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'yg-choice locked';
+            btn.disabled = true;
+            btn.innerHTML = `<span>${choice}</span><span class="suffix"></span>`;
+            btn.onclick = () => handlePick(choice, btn);
+            choicesEl.appendChild(btn);
+        });
+
+        // Load YouGlish widget
+        const queries = generateFallbackQueries(q.target);
+        let queryIdx = 0;
+        loadYG().then(YG => {
+            if (!YG || !currentQuiz || currentQuiz.target !== q.target) return;
+            try {
+                const outer = document.getElementById(playerId)?.parentElement;
+                const measured = outer?.clientWidth || 480;
+                const widget = new YG.Widget(playerId, {
+                    width: Math.min(480, Math.max(280, measured)),
+                    height: 600,
+                    components: 16,
+                    events: {
+                        onFetchDone: (e) => {
+                            if (!currentQuiz || currentQuiz.target !== q.target) return;
+                            if (e.totalResult === 0 && queryIdx < queries.length - 1) {
+                                queryIdx++;
+                                try { widget.fetch(queries[queryIdx], 'English', 'uk'); } catch {}
+                            } else {
+                                document.getElementById('ygLoading')?.remove();
+                            }
+                        },
+                        onPlayerStateChange: (e) => {
+                            if (!currentQuiz || currentQuiz.target !== q.target) return;
+                            const state = typeof e === 'number' ? e : (e?.data ?? e?.state);
+                            if (state === 1 && !currentQuiz.hasPlayed) {
+                                currentQuiz.hasPlayed = true;
+                                unlockChoices();
+                            }
+                            if (state === 0) {
+                                try { widget.replay?.(); } catch {}
+                            }
+                        }
+                    }
+                });
+                currentQuiz.widget = widget;
+                try { widget.fetch(queries[0], 'English', 'uk'); } catch {}
+                // Enable replay button after widget loads
+                const replayBtn = document.getElementById('ygReplay');
+                if (replayBtn) {
+                    replayBtn.disabled = false;
+                    replayBtn.style.opacity = '1';
+                    replayBtn.style.cursor = 'pointer';
+                    replayBtn.onclick = () => { try { widget.replay?.(); } catch {} };
+                }
+            } catch (err) { console.error(err); }
+        });
+    }
+
+    function unlockChoices() {
+        document.getElementById('ygHint')?.remove();
+        document.querySelectorAll('#ygChoices .yg-choice').forEach(b => {
+            b.classList.remove('locked');
+            b.disabled = false;
+        });
+    }
+
+    function handlePick(choice, btn) {
+        const q = currentQuiz;
+        if (!q || q.picked || !q.hasPlayed) return;
+        q.picked = choice;
+        const isCorrect = choice === q.target;
+
+        document.querySelectorAll('#ygChoices .yg-choice').forEach(b => {
+            b.disabled = true;
+            const text = b.querySelector('span').textContent;
+            const suffix = b.querySelector('.suffix');
+            if (text === q.target) {
+                b.classList.add('correct');
+                if (suffix) suffix.textContent = '✓ ' + q.meaning;
+            } else if (text === choice && !isCorrect) {
+                b.classList.add('wrong');
+                if (suffix) suffix.textContent = '✗';
+            }
+        });
+
+        if (isCorrect) {
+            sessionStats.totalCorrect++;
+            sessionStats.correctInMilestone++;
+            playSound('correct');
+        } else {
+            playSound('wrong');
+            wrongAnswerBuffer.push(q.target);
+        }
+        sessionStats.questionsInMilestone++;
+        setTimeout(nextQuestion, 1800);
     }
 
     function showMilestone(isFinal = false) {
         const total = isFinal ? sessionStats.questionsInMilestone : sessionStats.milestoneSize;
         const correct = sessionStats.correctInMilestone;
-        const percent = Math.round((correct / total) * 100);
+        const percent = total > 0 ? Math.round((correct / total) * 100) : 0;
 
         let message = "", iconHTML = "", iconClass = "mid";
-        if (percent === 100) {
-            message = "Hoàn hảo! Bạn nắm chắc cả 30 từ rồi đó.";
-            iconHTML = ICON_TROPHY; iconClass = "win";
-        } else if (percent >= 90) {
-            message = "Gần như hoàn hảo. Một chút nữa thôi.";
-            iconHTML = ICON_SPARK; iconClass = "win";
-        } else if (percent >= 80) {
-            message = "Khá tốt — bạn đang đi đúng hướng.";
-            iconHTML = ICON_SPARK; iconClass = "mid";
-        } else if (percent >= 50) {
-            message = "Vượt qua mốc trung bình. Tiếp tục luyện thêm nhé.";
-            iconHTML = ICON_TARGET; iconClass = "mid";
-        } else {
-            message = "Cần ôn lại một chút. Đừng bỏ cuộc — học lại từ sai là cách nhanh nhất.";
-            iconHTML = ICON_REFRESH; iconClass = "low";
-        }
+        if (percent === 100)       { message = "Hoàn hảo! Bạn nắm chắc cả 30 từ rồi đó."; iconHTML = ICON_TROPHY; iconClass = "win"; }
+        else if (percent >= 90)    { message = "Gần như hoàn hảo. Một chút nữa thôi."; iconHTML = ICON_SPARK; iconClass = "win"; }
+        else if (percent >= 80)    { message = "Khá tốt — bạn đang đi đúng hướng."; iconHTML = ICON_SPARK; iconClass = "mid"; }
+        else if (percent >= 50)    { message = "Vượt qua mốc trung bình. Tiếp tục luyện thêm nhé."; iconHTML = ICON_TARGET; iconClass = "mid"; }
+        else                       { message = "Cần ôn lại một chút. Đừng bỏ cuộc — học lại từ sai là cách nhanh nhất."; iconHTML = ICON_REFRESH; iconClass = "low"; }
 
         const container = document.getElementById('quizContainer');
         container.innerHTML = `
@@ -1111,12 +1286,10 @@
                 <div class="milestone-title">${isFinal ? 'Kết quả' : 'Checkpoint'}</div>
                 <div class="milestone-score">${percent}<span class="pct">%</span></div>
                 <p class="milestone-msg">${message}</p>
-
                 ${percent < 50 ?
                     `<button class="action-btn" onclick="retryFailed()">Học lại từ sai</button>` :
                     (quizQueue.length > 0 ? `<button class="action-btn" onclick="resume()">Tiếp tục</button>` : '')
                 }
-
                 <button class="secondary-btn" onclick="closeQuiz()">${isFinal || (percent < 50 && wrongAnswerBuffer.length == 0) ? 'Về trang chính' : 'Dừng lại'}</button>
             </div>
         `;
@@ -1124,7 +1297,7 @@
 
     function retryFailed() {
         if (wrongAnswerBuffer.length > 0) {
-            quizQueue = wrongAnswerBuffer.map(i => i.word);
+            quizQueue = [...wrongAnswerBuffer];
             wrongAnswerBuffer = [];
         } else {
             startQuiz(sessionStats.currentLimit);
@@ -1132,13 +1305,13 @@
         }
         sessionStats.correctInMilestone = 0;
         sessionStats.questionsInMilestone = 0;
-        renderQuizBase(); nextQuestion();
+        nextQuestion();
     }
 
     function resume() {
         sessionStats.correctInMilestone = 0;
         sessionStats.questionsInMilestone = 0;
-        renderQuizBase(); nextQuestion();
+        nextQuestion();
     }
 </script>
 </body>
